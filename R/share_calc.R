@@ -1,0 +1,81 @@
+#' Market share calculations
+#'
+#' Calculates choice probabilities based on logit or generalized nested logit
+#' demand parameters
+#'
+#' @param price Price
+#' @param alpha Price coefficient
+#' @param delta Mean values
+#' @param a_jk For generalized nested logit demand
+#' @param B For generalized nested logit demand
+#' @param mu Nesting parameters for each nest
+#' @param returnLogsum logical; whether to return the denominator of the choice
+#' probabilities (also known as the log-sum term). Defaults to FALSE, in which
+#' case the function returns a vector with each product's choice probability.
+#'
+#' @returns Returns vector of choice probabilities for each good
+#'
+#' @details This function calculates choice probabilities based on demand
+#' parameters for a logit or generalized nested logit demand system
+#'
+#' @examples
+#' TO BE ADDED.
+#'
+#' @export
+
+
+
+##################################################################
+# Calculate choice probabilities
+##################################################################
+
+share_calc <- function(price,delta,alpha,a_jk=NA,B=NA,mu=NA,
+                           returnLogsum=FALSE){
+  # a is a J-by-K matrix of allocation parameters
+  # B is a J-by-K matrix of indicators designating nests
+  # mu is a vector length K of nesting parameters
+
+  # If no GNL parameters, treat as standard logit. One nest. mu=1.
+  J <- length(price)
+
+  if (any(is.na(B))) {
+    K <- 1
+    B <- matrix(1, ncol = 1, nrow = J)
+    a_jk <- B
+    mu <- rep(1,K)
+  }
+
+  # check that length(p) == dim(B)[1] == J
+  J <- dim(B)[1]
+  K <- dim(B)[2]
+
+  V_j <- delta + alpha * price
+
+  temp1 <- a_jk * matrix(rep(exp(V_j),K), ncol = K, nrow = J)
+  temp2 <- temp1 ^ matrix(rep((1/mu),J), ncol = K, nrow = J, byrow = TRUE)
+  P_k_num <- colSums(temp2) ^ mu
+  P_k_denom <- sum(P_k_num)  # NO outside option
+  P_k_denom <- 1+sum(P_k_num)  # WITH outside option
+  P_k <- P_k_num / P_k_denom
+  # P_k should be a length K vector that sums to 1
+
+  P_j_Bk <- temp2 / matrix(rep(colSums(temp2),J), ncol = K, nrow = J, byrow = TRUE)
+  # this should be a JxK matrix with columns that sum to 1, unless empty nest
+  # fix for empty nests. It doesn't matter what value, as long as not NaN:
+  P_j_Bk[is.na(P_j_Bk)] <- 0
+
+  P_j <- rowSums(P_j_Bk * matrix(rep((P_k),J), ncol = K, nrow = J, byrow = TRUE))
+  # P_j should be a vector of length J that sums to one.
+  # Add in check for both those conditions
+
+  if (returnLogsum == FALSE) {
+    out <- P_j
+    return(out)
+  }
+  if (returnLogsum == TRUE) {
+    out <- log(P_k_denom)
+    return(out)
+  }
+
+}
+

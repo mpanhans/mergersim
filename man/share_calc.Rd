@@ -4,10 +4,18 @@
 \alias{share_calc}
 \title{Market share calculations}
 \usage{
-share_calc(p, delta, alpha, a_jk = NA, B = NA, mu = NA, returnLogsum = FALSE)
+share_calc(
+  price,
+  delta,
+  alpha,
+  a_jk = NA,
+  B = NA,
+  mu = NA,
+  returnLogsum = FALSE
+)
 }
 \arguments{
-\item{p}{Price}
+\item{price}{Price}
 
 \item{delta}{Mean values}
 

@@ -5,11 +5,11 @@
 \title{Bertrand first-order conditions}
 \usage{
 bertrand_foc(
-  p,
+  price,
   own,
   alpha,
   delta,
-  c,
+  cost,
   a_jk = NA,
   B = NA,
   mu = NA,
@@ -17,7 +17,7 @@ bertrand_foc(
 )
 }
 \arguments{
-\item{p}{Price}
+\item{price}{Price}
 
 \item{own}{Ownership matrix}
 
@@ -25,7 +25,7 @@ bertrand_foc(
 
 \item{delta}{Mean values}
 
-\item{c}{Marginal costs for each product}
+\item{cost}{Marginal costs for each product}
 
 \item{a_jk}{For generalized nested logit demand}
 

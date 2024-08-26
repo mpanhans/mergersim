@@ -5,7 +5,7 @@
 #' @param alpha Price coefficient
 #' @param delta Mean values
 #' @param cost Marginal costs for each product
-#' @param lambda Bargaining power (of which agent?)
+#' @param lambda Bargaining power of the buyer
 #' @param includeMUI logical; TO BE ADDED
 #'
 #' @returns The first-order conditions

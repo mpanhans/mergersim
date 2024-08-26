@@ -17,7 +17,7 @@ bargain_foc(price, own, alpha, delta, cost, lambda, includeMUI = TRUE)
 
 \item{cost}{Marginal costs for each product}
 
-\item{lambda}{Bargaining power (of which agent?)}
+\item{lambda}{Bargaining power of the buyer}
 
 \item{includeMUI}{logical; TO BE ADDED}
 }

@@ -2,5 +2,6 @@
 
 export(bargain_foc)
 export(bertrand_foc)
+export(bertrand_foc_calibrate)
 export(share_calc)
 export(ssa_bargain_foc)

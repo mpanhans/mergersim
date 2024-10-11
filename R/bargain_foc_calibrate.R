@@ -28,7 +28,7 @@
 # ownership matrix.
 # also add checks for dimensions of inputs
 
-bargain_foc_calibrate <- function(param,ownership,price,shares,cost,weight,
+bargain_foc_calibrate <- function(param,own,price,shares,cost,weight,
                                lambda,includeMUI=TRUE){
 
   J <- length(price)
@@ -36,9 +36,9 @@ bargain_foc_calibrate <- function(param,ownership,price,shares,cost,weight,
   delta <- param[2:(1+J)]
 
   x0 <- price
-  out <- multiroot(f = bargain_foc, start = x0, ownership = ownership,
-                   alpha= alpha, delta = delta, c_j = cost,
-                   lambda = lambda,includeMUI = includeMUI)
+  out <- multiroot(f = bargain_foc, start = x0, own = own,
+                   alpha= alpha, delta = delta, cost = cost,
+                   lambda = lambda, includeMUI = includeMUI)
   p3 <- out$root
   share3 <- (exp(delta + alpha*p3))/(1+sum(exp(delta + alpha*p3)))
 

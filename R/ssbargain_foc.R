@@ -28,7 +28,7 @@
 # ownership matrix.
 # also add checks for dimensions of inputs
 
-ssa_bargain_foc <- function(price,own,alpha,delta,cost,lambda,includeMUI=TRUE){
+ssbargain_foc <- function(price,own,alpha,delta,cost,lambda,includeMUI=TRUE){
 
   wshares <- (exp(delta + alpha*cost))/(1+sum(exp(delta + alpha*cost)))
   m <- price - cost

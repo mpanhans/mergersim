@@ -28,7 +28,7 @@
 # ownership matrix.
 # also add checks for dimensions of inputs
 
-bargain_foc_calibrate <- function(param,own,price,shares,cost,weight,
+bargain_calibrate <- function(param,own,price,shares,cost,weight,
                                lambda,includeMUI=TRUE){
 
   J <- length(price)

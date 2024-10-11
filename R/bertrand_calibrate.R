@@ -35,7 +35,7 @@
 # share1 <- assignment needs to be to generalized to account for GNL. As
 # written this function can only handle standard logit.
 
-bertrand_foc_calibrate <- function(param,own,price,shares,cost,weight){
+bertrand_calibrate <- function(param,own,price,shares,cost,weight){
 
   J <- length(price)
   alpha <- param[1]

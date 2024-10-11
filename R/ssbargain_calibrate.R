@@ -37,8 +37,8 @@ ssbargain_calibrate <- function(param,own,price,shares,cost,weight,
 
   x0 <- price
   out <- multiroot(f = ssbargain_foc,start = x0, own = own,
-                   alpha= alpha, delta = delta, c_j = cost,
-                   lambda = lambda,includeMUI = includeMUI)
+                   alpha= alpha, delta = delta, cost = cost,
+                   lambda = lambda, includeMUI = includeMUI)
 
   p4 <- out$root
   share4 <- (exp(delta + alpha*cost))/(1+sum(exp(delta + alpha*cost)))

@@ -6,8 +6,9 @@
 #' @param price Price
 #' @param alpha Price coefficient
 #' @param delta Mean values
-#' @param a_jk For generalized nested logit demand
-#' @param B For generalized nested logit demand
+#' @param nest_allocation For generalized nested logit demand, a J-by-K matrix
+#' where each element (j,k) designates the membership of good j in nest k. Rows
+#' should sum to 1.
 #' @param mu Nesting parameters for each nest
 #' @param returnLogsum logical; whether to return the denominator of the choice
 #' probabilities (also known as the log-sum term). Defaults to FALSE, in which
@@ -29,21 +30,26 @@
 # Calculate choice probabilities
 ##################################################################
 
-share_calc <- function(price,delta,alpha,a_jk=NA,B=NA,mu=NA,
+share_calc <- function(price,delta,alpha,nest_allocation=NA,mu=NA,
                            returnLogsum=FALSE){
   # a is a J-by-K matrix of allocation parameters
   # B is a J-by-K matrix of indicators designating nests
   # mu is a vector length K of nesting parameters
 
-  # If no GNL parameters, treat as standard logit. One nest. mu=1.
   J <- length(price)
 
-  if (any(is.na(B))) {
+  # If GNL, define GNL objects
+  a_jk <- nest_allocation
+  B <- 1*(a_jk > 0)
+
+  # If no GNL parameters, treat as standard logit. One nest with mu=1.
+  if (any(is.na(nest_allocation))) {
     K <- 1
     B <- matrix(1, ncol = 1, nrow = J)
     a_jk <- B
     mu <- rep(1,K)
   }
+
 
   # check that length(p) == dim(B)[1] == J
   J <- dim(B)[1]

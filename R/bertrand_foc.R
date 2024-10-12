@@ -5,8 +5,9 @@
 #' @param alpha Price coefficient
 #' @param delta Mean values
 #' @param cost Marginal costs for each product
-#' @param a_jk For generalized nested logit demand
-#' @param B For generalized nested logit demand
+#' @param nest_allocation For generalized nested logit demand, a J-by-K matrix
+#' where each element (j,k) designates the membership of good j in nest k. Rows
+#' should sum to 1.
 #' @param mu Nesting parameters for each nest
 #' @param sumFOC logical; whether to return the sum of squares of
 #' the first-order conditions. Defaults to FALSE, in which case it returns each
@@ -33,11 +34,16 @@
 # also add checks for dimensions of inputs
 
 bertrand_foc <- function(price, own, alpha, delta, cost,
-                         a_jk=NA, B=NA, mu=NA, sumFOC = FALSE){
+                         nest_allocation=NA, mu=NA, sumFOC = FALSE){
+
+  J <- length(price)
+
+  # If GNL, define GNL objects
+  a_jk <- nest_allocation
+  B <- 1*(a_jk > 0)
 
   # If no GNL parameters, treat as standard logit. One nest. mu=1.
-  J <- length(price)
-  if (any(is.na(B))) {
+  if (any(is.na(nest_allocation))) {
     K <- 1
     B <- matrix(1, ncol = 1, nrow = J)
     a_jk <- B
@@ -52,10 +58,10 @@ bertrand_foc <- function(price, own, alpha, delta, cost,
 
   # then calculate foc
   shares <- share_calc(price = price, alpha = alpha, delta = delta,
-                           a_jk = a_jk, B=B, mu = mu)
+                       nest_allocation = a_jk, mu = mu)
   m <- price - cost
   dd <- jacobian(share_calc, x = price, delta = delta, alpha = alpha,
-                 a_jk=a_jk,B=B,mu=mu)
+                 nest_allocation=a_jk, mu=mu)
   omega <- (own_R * t(dd))
 
   # if all costs available:

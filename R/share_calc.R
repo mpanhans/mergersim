@@ -59,7 +59,7 @@ share_calc <- function(price,delta,alpha,nest_allocation=NA,mu=NA,
 
   temp1 <- a_jk * matrix(rep(exp(V_j),K), ncol = K, nrow = J)
   temp2 <- temp1 ^ matrix(rep((1/mu),J), ncol = K, nrow = J, byrow = TRUE)
-  P_k_num <- colSums(temp2) ^ mu
+  P_k_num <- colSums(temp2) ^ mu  # P_k_num should be length K
   P_k_denom <- sum(P_k_num)  # NO outside option
   P_k_denom <- 1+sum(P_k_num)  # WITH outside option
   P_k <- P_k_num / P_k_denom

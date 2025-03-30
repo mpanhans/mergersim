@@ -1,16 +1,11 @@
 #' Bertrand model calibration
 #'
+#' @param param Price coefficient alpha and mean values delta, parameters to
+#' calibrate
 #' @param price Price
 #' @param own Ownership matrix
-#' @param alpha Price coefficient
-#' @param delta Mean values
 #' @param cost Marginal costs for each product
-#' @param a_jk For generalized nested logit demand
-#' @param B For generalized nested logit demand
-#' @param mu Nesting parameters for each nest
-#' @param sumFOC logical; whether to return the sum of squares of
-#' the first-order conditions. Defaults to FALSE, in which case it returns each
-#' product first-order condition as a vector.
+#' @param weight Weighting matrix
 #'
 #' @returns The first-order conditions
 #'
@@ -34,6 +29,10 @@
 # also add default for weight matrix
 # share1 <- assignment needs to be to generalized to account for GNL. As
 # written this function can only handle standard logit.
+# Note: this function should be re-written to use berry inversion instead of
+# searching over delta in param vector.
+# This function is only for standard logit demand. For nested logit or
+# generalized nested logit, see bertrand_calibrate_gnl().
 
 bertrand_calibrate <- function(param,own,price,shares,cost,weight){
 

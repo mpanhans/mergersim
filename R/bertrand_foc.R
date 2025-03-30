@@ -21,7 +21,7 @@
 #' @examples
 #' TO BE ADDED.
 #'
-#' @export
+#' @export bertrand_foc
 
 
 
@@ -83,4 +83,55 @@ bertrand_foc <- function(price, own, alpha, delta, cost,
   }
 
 }
+
+
+
+##################################################################
+# Second version of function that puts cost as first parameter
+# Used for backing out costs in bertrand_calibrate_gnl().
+##################################################################
+
+bertrand_foc_c <- function(cost, price, own, alpha, delta,
+                           nest_allocation=NA, mu=NA, sumFOC = FALSE){
+
+  J <- length(price)
+
+  # If GNL, define GNL objects
+  a_jk <- nest_allocation
+  B <- 1*(a_jk > 0)
+
+  # If no GNL parameters, treat as standard logit. One nest. mu=1.
+  if (any(is.na(nest_allocation))) {
+    K <- 1
+    B <- matrix(1, ncol = 1, nrow = J)
+    a_jk <- B
+    mu <- rep(1,K)
+  }
+
+  # first create ownership matrices
+  #own_fun_down <- function(x) {as.numeric(x == own_down)}
+  #own_R <- t(sapply(own_down, own_fun_down) )
+  # Since ownership is given by matrix directly:
+  own_R <- own
+
+  # then calculate foc
+  shares <- share_calc(price = price, alpha = alpha, delta = delta,
+                       nest_allocation = a_jk, mu = mu)
+  m <- price - cost
+  dd <- jacobian(share_calc, x = price, delta = delta, alpha = alpha,
+                 nest_allocation=a_jk, mu=mu)
+  omega <- (own_R * t(dd))
+
+  # since all costs available:
+  foc <- omega %*% m + shares
+
+  if (sumFOC == FALSE) {
+    return(foc)
+  } else {
+    out <- sum(foc^2)
+    return(out)
+  }
+
+}
+
 

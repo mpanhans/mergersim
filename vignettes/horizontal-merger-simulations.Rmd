@@ -21,7 +21,9 @@ library(mergersim)
 
 # Introduction
 
-Simple models of competition that can be calibrated with only a few inputs can be useful to readily analyze certain mergers. For example, such an exercise can be useful when screening for possible concern in a transaction. Even with simple models, however, there are several nuances to consider. This document covers a Bertrand model and a second score auction model, illustrates how to do a merger simulation, and includes all the R code necessary to reproduce the analysis.
+This repository contains functions that can be used to replicate the results from Panhans and Taragin 2023, including both calibration and merger simulation. This vignette illustrates how the functions can be used for the calibration and merger simulation of all four models analyzed in that paper.
+
+Simple models of competition that can be calibrated with only a few inputs can be useful to readily analyze certain mergers. For example, such an exercise can be useful when screening for possible concern in a transaction. Even with simple models, however, there are several nuances to consider. This document covers four models of differentiated product competition analyzed in Panhans and Taragin 2023: Bertrand, second score auction, a classic Nash bargaining model that nests Bertrand, and an alternative bargaining model formulation that nests the second score auction.
 
 ## Preliminaries
 
@@ -279,7 +281,7 @@ Let's assume the demand parameters specified above are the true demand parameter
 x0 <- c_j*1.5
 
 out3 <- multiroot(f = bargain_foc, start = x0, own = own_pre, 
-                       alpha= alpha, delta = delta, cost = c_j, lambda = 0.5)
+                       alpha = alpha, delta = delta, cost = c_j, lambda = 0.5)
 p3 <- out3$root
 share3 <- (exp(delta + alpha*p3))/(1+sum(exp(delta + alpha*p3)))
 

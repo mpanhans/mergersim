@@ -5,7 +5,8 @@
 #' @param ownership Ownership matrix
 #' @param share Observed market shares
 #' @param cost Marginal costs for each product
-#' @param weight Vector of weights given to prices, shares, diversions, respectively
+#' @param weight Vector of length four with weights given to prices, shares,
+#' diversions, and costs, respectively. Default is c(1,1,1,1).
 #' @param nest_allocation For generalized nested logit demand, a J-by-K matrix
 #' where each element (j,k) designates the membership of good j in nest k. Rows
 #' should sum to 1.
@@ -17,7 +18,7 @@
 #' parameters. mu_full = mu_constraint_matrix %*% mu_prime. Where mu_full
 #' is a vector of length K of the nesting parameter value for each nest,
 #' and mu_prime is a vector of length K' of parameters to be calculated.
-#' It must be the case that K \geq K'.
+#' It must be the case that K is greater than K'.
 #' @param div_calc_marginal is a logical if function should match to marginal
 #' diversions (if TRUE) or second choice diversions (if FALSE). Default
 #' to TRUE.
@@ -45,7 +46,8 @@
 
 
 bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
-                                   weight,nest_allocation,div_matrix,
+                                   weight = c(1,1,1,1),
+                                   nest_allocation,div_matrix,
                                    mu_constraint_matrix = NA,
                                    div_calc_marginal = TRUE,
                                    optimizer="BBoptim",
@@ -57,6 +59,12 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
   K_val <- dim(a_jk)[2]
 
   alpha <- param[1]
+
+
+  #### checks on weighting vector ####
+  if (length(weight) != 4) {
+    warning("Weight vector should be of length 4.")
+  }
 
 
   #### checks on mu_constraint matrix ####
@@ -90,7 +98,6 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
   }
 
 
-
   mu <- mu_constraint_matrix %*% mu_prime
 
   J <- length(price)
@@ -103,10 +110,8 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
 
   delta <- find_d$root
 
-  # sometimes, multiroot inexplicably fails inside of optimization. Set to delta0.
-  # I guess really I should have an option to switch this to optim in cases where
-  # multiroot fails.
-  # Eventually need to understand better how multiroot can possible fail.
+  # sometimes, multiroot fails inside of optimization. Set to delta0.
+  # Eventually need to understand better when multiroot fails.
 
   #useOld <- TRUE  # if want to use old version of function, which had no correction
   useOld <- FALSE # if want to use new version, with delta NA correction

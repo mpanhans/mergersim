@@ -6,8 +6,8 @@ Authors@R:
   email = "mpanhans@gmail.com",
   role = c("aut", "cre"),
   comment = c(ORCID = "0000-0001-7874-6740"))
-Description: A collection of functions to calibrate demand systems and 
-  implement merger simulations.
+Description: The repository includes a collection of functions to calibrate 
+  demand systems and implement merger simulations.
 License: CC0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -40,11 +40,11 @@ ssbargain_calibrate <- function(param,own,price,shares,cost,weight,
                    alpha= alpha, delta = delta, cost = cost,
                    lambda = lambda, includeMUI = includeMUI)
 
-  p4 <- out$root
-  share4 <- (exp(delta + alpha*cost))/(1+sum(exp(delta + alpha*cost)))
+  price_m <- out$root
+  share_m <- (exp(delta + alpha*cost))/(1+sum(exp(delta + alpha*cost)))
 
-  pdiff <- price - p4
-  sdiff <- shares - share4
+  pdiff <- price - price_m
+  sdiff <- shares - share_m
 
   objfxn <- c(pdiff,sdiff) %*% weight %*% c(pdiff,sdiff)
   return(objfxn)

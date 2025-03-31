@@ -17,7 +17,7 @@
 #' parameters. mu_full = mu_constraint_matrix %*% mu_prime. Where mu_full
 #' is a vector of length K of the nesting parameter value for each nest,
 #' and mu_prime is a vector of length K' of parameters to be calculated.
-#' It must be the case that K \geq K'.
+#' It must be the case that K is greater than K'.
 #' @param div_calc_marginal is a logical if function should match to marginal
 #' diversions (if TRUE) or second choice diversions (if FALSE). Default
 #' to TRUE.

@@ -21,7 +21,7 @@ library(mergersim)
 
 # Introduction
 
-This vignette illustrates how to calibrate a generalized nested logit (GNL) demand system assuming a differentiated product Bertrand price-setting model of competition. The notation follows Chapter 4 of Train 2000. For further details, see Panhans and Wiemer 2025.
+This vignette illustrates how to calibrate a generalized nested logit (GNL) demand system assuming a differentiated product Bertrand price-setting model of competition. The notation follows Chapter 4 of Train 2000. The functions used here can be used to replicate the results in Panhans and Wiemer 2025. For further details, see that paper.
 
 We begin with load packages that will be useful. BB and rootSolve are packages with optimization tools. The package numDeriv is needed for the jacobian() function.
 

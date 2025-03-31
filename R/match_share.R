@@ -21,8 +21,7 @@
 #' TO BE ADDED.
 #'
 
-## #' @export
-## Should this function be exported?
+#' @export
 
 
 ##################################################################

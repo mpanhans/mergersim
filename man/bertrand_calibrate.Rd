@@ -7,25 +7,16 @@
 bertrand_calibrate(param, own, price, shares, cost, weight)
 }
 \arguments{
+\item{param}{Price coefficient alpha and mean values delta, parameters to
+calibrate}
+
 \item{own}{Ownership matrix}
 
 \item{price}{Price}
 
 \item{cost}{Marginal costs for each product}
 
-\item{alpha}{Price coefficient}
-
-\item{delta}{Mean values}
-
-\item{a_jk}{For generalized nested logit demand}
-
-\item{B}{For generalized nested logit demand}
-
-\item{mu}{Nesting parameters for each nest}
-
-\item{sumFOC}{logical; whether to return the sum of squares of
-the first-order conditions. Defaults to FALSE, in which case it returns each
-product first-order condition as a vector.}
+\item{weight}{Weighting matrix}
 }
 \value{
 The first-order conditions

@@ -10,8 +10,7 @@ bertrand_foc(
   alpha,
   delta,
   cost,
-  a_jk = NA,
-  B = NA,
+  nest_allocation = NA,
   mu = NA,
   sumFOC = FALSE
 )
@@ -27,9 +26,9 @@ bertrand_foc(
 
 \item{cost}{Marginal costs for each product}
 
-\item{a_jk}{For generalized nested logit demand}
-
-\item{B}{For generalized nested logit demand}
+\item{nest_allocation}{For generalized nested logit demand, a J-by-K matrix
+where each element (j,k) designates the membership of good j in nest k. Rows
+should sum to 1.}
 
 \item{mu}{Nesting parameters for each nest}
 

@@ -20,11 +20,11 @@ diversion_calc(
 
 \item{delta}{Mean values}
 
+\item{nest_allocation}{For generalized nested logit demand, a J-by-K matrix
+where each element (j,k) designates the membership of good j in nest k. Rows
+should sum to 1.}
+
 \item{mu}{Nesting parameters for each nest}
-
-\item{a_jk}{For generalized nested logit demand}
-
-\item{B}{For generalized nested logit demand}
 
 \item{returnLogsum}{logical; whether to return the denominator of the choice
 probabilities (also known as the log-sum term). Defaults to FALSE, in which

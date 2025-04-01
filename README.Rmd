@@ -25,8 +25,8 @@ This repository contains a collection of functions that can be used to conduct m
 You can install the development version of mergersim from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("pak")
-pak::pak("mpanhans/mergersim")
+# install.packages("devtools")
+devtools::install_github("mpanhans/mergersim")
 ```
 
 # Disclaimer
@@ -51,11 +51,7 @@ summary(cars)
 
 You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
 
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
+You can also embed plots
 
 In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
 

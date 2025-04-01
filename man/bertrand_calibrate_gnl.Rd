@@ -10,7 +10,7 @@ bertrand_calibrate_gnl(
   price,
   shares,
   cost,
-  weight,
+  weight = c(1, 1, 1, 1),
   nest_allocation,
   div_matrix,
   mu_constraint_matrix = NA,
@@ -28,7 +28,8 @@ bertrand_calibrate_gnl(
 
 \item{cost}{Marginal costs for each product}
 
-\item{weight}{Vector of weights given to prices, shares, diversions, respectively}
+\item{weight}{Vector of length four with weights given to prices, shares,
+diversions, and costs, respectively. Default is c(1,1,1,1).}
 
 \item{nest_allocation}{For generalized nested logit demand, a J-by-K matrix
 where each element (j,k) designates the membership of good j in nest k. Rows

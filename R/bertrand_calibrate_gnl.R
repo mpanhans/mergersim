@@ -62,8 +62,10 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
 
 
   #### checks on weighting vector ####
+  if (useOldWeight == FALSE) {
   if (length(weight) != 4) {
     warning("Weight vector should be of length 4.")
+  }
   }
 
 

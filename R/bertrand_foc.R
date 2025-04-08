@@ -22,6 +22,7 @@
 #' TO BE ADDED.
 #'
 #' @export bertrand_foc
+#' @export bertrand_foc_c
 
 
 

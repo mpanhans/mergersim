@@ -127,10 +127,20 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
 
   x0 <- price
 
-
   ## NEW: Given observed prices, and current guess of demand parameter values,
   ## back out costs consistent with FOCs.
-  x06 <- price * 0.5
+  #x06 <- price * 0.5
+  ## Add check that at least one element of the cost vector is non-missing.
+  ## Or, adjust this to allow for starting value when cost vector is completely
+  ## missing.
+
+  if (anyNA(cost) == FALSE) {
+    x06 <- cost
+  }
+  if (anyNA(cost) == TRUE) {
+    meancost <- mean(c_j_NA, na.rm = TRUE)
+    x06 <- ifelse(!is.na(c_j_NA), c_j, meancost)
+  }
 
   out_cost <- optim(f = bertrand_foc_c, par = x06,
                     price = price, own = ownership, alpha = alpha,

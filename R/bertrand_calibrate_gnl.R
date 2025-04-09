@@ -24,6 +24,8 @@
 #' to TRUE.
 #' @param optimizer Which optimization routine should be used to find
 #' equilibrium prices, either BBoptim or multiroot
+#' @param returnOutcomes logical; should equilibrium objects be returned (mean
+#' value parameter, prices, shares, costs) as a list.
 #'
 #' @returns Difference between model predicted and observed values of
 #' prices, shares, and diversions.
@@ -51,7 +53,8 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
                                    mu_constraint_matrix = NA,
                                    div_calc_marginal = TRUE,
                                    optimizer="BBoptim",
-                                   useOldWeight = FALSE){
+                                   useOldWeight = FALSE,
+                                   returnOutcomes = FALSE){
 
   # If GNL, define GNL objects
   a_jk <- nest_allocation
@@ -146,9 +149,13 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
                     price = price, own = ownership, alpha = alpha,
                     delta = delta,
                     nest_allocation=a_jk, mu=mu, sumFOC = TRUE,
-                    control = list(maxit = 1000) )
+                    control = list(maxit = 1500) )
 
   cost_cal <- out_cost$par
+
+  if (out_cost$convergence != 0) {
+    warning("Cost calibration did not converge.")
+  }
 
 
   ## BBoptim or multiroot. If there are missing costs, use BBoptim
@@ -212,7 +219,17 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
   }
 
 
-  return(objfxn)
+  if (returnOutcomes == FALSE) {
+    return(objfxn)
+  }
+  if (returnOutcomes == TRUE) {
+    return(list("FOCs" = c(pdiff,sdiff,div_diff,cost_diff),
+                "delta_cal" = delta,
+                "p_model" = p_model,
+                "share_m" = share_m,
+                "cost_cal" = cost_cal,
+                "diversions_m" = diversions_m) )
+  }
 
 }
 

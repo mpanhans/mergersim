@@ -138,8 +138,8 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
     x06 <- cost
   }
   if (anyNA(cost) == TRUE) {
-    meancost <- mean(c_j_NA, na.rm = TRUE)
-    x06 <- ifelse(!is.na(c_j_NA), c_j, meancost)
+    meancost <- mean(cost, na.rm = TRUE)
+    x06 <- ifelse(!is.na(cost), cost, meancost)
   }
 
   out_cost <- optim(f = bertrand_foc_c, par = x06,

@@ -53,8 +53,11 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
                                    mu_constraint_matrix = NA,
                                    div_calc_marginal = TRUE,
                                    optimizer="BBoptim",
+                                   optimizer_c="optim",
                                    useOldWeight = FALSE,
-                                   returnOutcomes = FALSE){
+                                   returnOutcomes = FALSE,
+                                   maxitval = 1500,
+                                   maxitval_c = 1500){
 
   # If GNL, define GNL objects
   a_jk <- nest_allocation
@@ -145,18 +148,33 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
     x06 <- ifelse(!is.na(cost), cost, meancost)
   }
 
-  out_cost <- optim(f = bertrand_foc_c, par = x06,
-                    price = price, own = ownership, alpha = alpha,
-                    delta = delta,
-                    nest_allocation=a_jk, mu=mu, sumFOC = TRUE,
-                    control = list(maxit = 1500) )
+  if (optimizer_c == "optim") {
+    out_cost <- optim(f = bertrand_foc_c, par = x06,
+                      price = price, own = ownership, alpha = alpha,
+                      delta = delta,
+                      nest_allocation=a_jk, mu=mu, sumFOC = TRUE,
+                      control = list(maxit = maxitval_c) )
 
-  cost_cal <- out_cost$par
+    cost_cal <- out_cost$par
 
-  if (out_cost$convergence != 0) {
-    warning("Cost calibration did not converge.")
+    if (out_cost$convergence != 0) {
+      warning(paste0("Cost calibration did not converge with code "),out_cost$convergence)
+    }
   }
 
+  if (optimizer_c == "BBoptim") {
+    out_cost <- BBoptim(fn = bertrand_foc_c, par = x06,
+                      price = price, own = ownership, alpha = alpha,
+                      delta = delta,
+                      nest_allocation=a_jk, mu=mu, sumFOC = TRUE,
+                      control = list(maxit = maxitval_c) )
+
+    cost_cal <- out_cost$par
+
+    if (out_cost$convergence != 0) {
+      warning(paste0("Cost calibration did not converge with code "),out_cost$convergence)
+    }
+  }
 
   ## BBoptim or multiroot. If there are missing costs, use BBoptim
   if (optimizer == "BBoptim") {
@@ -164,9 +182,14 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
                     own = ownership, alpha= alpha,
                     delta = delta, cost = cost_cal,
                     nest_allocation = a_jk, mu = mu,
-                    sumFOC = TRUE, control = list(trace=FALSE))
+                    sumFOC = TRUE, control = list(trace=FALSE, maxit = maxitval))
 
     p_model <- out1$par
+
+    if (out1$convergence != 0) {
+      warning(paste0("Price equilibrium did not converge with code "),out1$convergence)
+    }
+
   }
   if (optimizer == "multiroot") {
     out1 <- multiroot(f = bertrand_foc, start = x0,

@@ -24,6 +24,8 @@
 #' to TRUE.
 #' @param optimizer Which optimization routine should be used to find
 #' equilibrium prices, either BBoptim or multiroot
+#' @param optimizer_c Which optimization routine should be used to calibrate
+#' costs, either BBoptim or optim
 #' @param returnOutcomes logical; should equilibrium objects be returned (mean
 #' value parameter, prices, shares, costs) as a list.
 #'

@@ -240,12 +240,14 @@ true_div <- diversion_calc(price=p_R3,alpha=alpha_true,delta=delta_true,
 
 Now we will see if with the observed market prices, shares, diversions, and costs, we can recover the true demand parameters through calibration. We will first consider the full information case where all costs are known; after, we will consider the case where the costs of only a subset of products are available, and diversions are only known among a subset of the products.
 
+For illustration, suppose that we do know that the $K=5$ nesting parameters have the same value, but we need to calibrate that value. Allowing each nesting parameter value to freely, the function can still calibrate the true values, however the code takes longer to converge. By providing the optimization function with a starting value vector with two elements, the calibration routine will assume that the analyst intends to assume all nesting parameters have the same value.
+
 
 ```{r, results = "hide", warning=FALSE}
 
-wt_vector <- c(50,10,100,10)
+wt_vector <- c(50,10,100,200)
 
-x00 <- c(alpha_true,mu3)-.2
+x00 <- c(alpha_true,mu3[1])-.2
 
 
 out3 <- optim(f = bertrand_calibrate_gnl, par = x00,
@@ -261,9 +263,8 @@ out3 <- optim(f = bertrand_calibrate_gnl, par = x00,
 
 out3$par[1]
 alpha_true
-out3$par[2:6]
+out3$par[2:length(out3$par)]
 mu3
-
 
 
 ```
@@ -271,11 +272,14 @@ mu3
 And then we can check how closely the model predicted values match the observed market outcomes.
 
 ```{r}
+mu_constraint_matrix <- matrix(1, nrow = K3, ncol = 1)
+mu_cal <- mu_constraint_matrix %*% out3$par[2]
+
 delta_start <- log(shares3) - log(1-sum(shares3)) - out3$par[1]*p_R3
 
 out3b <- multiroot(f = match_share, start = delta_start,
                     price=p_R3,alpha=out3$par[1],nest_allocation=a3,
-                   mu=out3$par[2:6],
+                   mu=mu_cal,
                     shares_obs = shares3)
 
 out3b$root
@@ -283,7 +287,7 @@ delta_true
 
 delta_cal <- out3b$root
 alpha_cal <- out3$par[1]
-mu_cal <- out3$par[2:6]
+
 
 
 ## See how well we are matching observables

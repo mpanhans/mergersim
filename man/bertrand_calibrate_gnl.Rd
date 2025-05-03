@@ -16,7 +16,11 @@ bertrand_calibrate_gnl(
   mu_constraint_matrix = NA,
   div_calc_marginal = TRUE,
   optimizer = "BBoptim",
-  useOldWeight = FALSE
+  optimizer_c = "optim",
+  useOldWeight = FALSE,
+  returnOutcomes = FALSE,
+  maxitval = 1500,
+  maxitval_c = 1500
 )
 }
 \arguments{
@@ -52,6 +56,12 @@ to TRUE.}
 
 \item{optimizer}{Which optimization routine should be used to find
 equilibrium prices, either BBoptim or multiroot}
+
+\item{optimizer_c}{Which optimization routine should be used to calibrate
+costs, either BBoptim or optim}
+
+\item{returnOutcomes}{logical; should equilibrium objects be returned (mean
+value parameter, prices, shares, costs) as a list.}
 
 \item{share}{Observed market shares}
 }

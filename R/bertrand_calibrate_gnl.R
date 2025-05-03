@@ -92,7 +92,7 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
   ## if no matrix provided, but K_prime implied by length of param is 1,
   ## then we can assume just one nesting parameter
   if (anyNA(mu_constraint_matrix) & K_prime == 1 ) {
-    mu_constraint_matrix <- matrix(1, nrow = length(mu_prime), ncol = 1)
+    mu_constraint_matrix <- matrix(1, nrow = K_val, ncol = 1)
   }
 
   ## if no matrix provided, but K_prime implied by length of param is K,

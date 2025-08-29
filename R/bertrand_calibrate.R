@@ -1,16 +1,18 @@
 #' Bertrand model calibration
 #'
-#' @param param Price coefficient alpha and mean values delta, parameters to
-#' calibrate
+#' @param param Price coefficient alpha parameter to calibrate
 #' @param price Price
 #' @param own Ownership matrix
 #' @param cost Marginal costs for each product
 #' @param weight Weighting matrix
 #'
-#' @returns The first-order conditions
+#' @returns Distance between observed values and model predicted values for
+#' prices and shares
 #'
 #' @details This function calculate the first-order conditions from a Bertrand
-#' price-setting model of competition
+#' price-setting model of competition. This function is only for standard logit
+#' demand. For nested logit or generalized nested logit, see
+#' bertrand_calibrate_gnl().
 #'
 #' @examples
 #' TO BE ADDED.
@@ -23,22 +25,25 @@
 # Bertrand model calibration
 ##################################################################
 # Add warning if alpha > 0. It should be < 0.
-# Would be nice if ownership could be either vector of names OR an
+# Ownership should be accommodated as either vector of names OR an
 # ownership matrix.
-# also add checks for dimensions of inputs
-# also add default for weight matrix
-# share1 <- assignment needs to be to generalized to account for GNL. As
-# written this function can only handle standard logit.
-# Note: this function should be re-written to use berry inversion instead of
-# searching over delta in param vector.
-# This function is only for standard logit demand. For nested logit or
-# generalized nested logit, see bertrand_calibrate_gnl().
+# add checks for dimensions of inputs
+# add default for weight matrix
+
 
 bertrand_calibrate <- function(param,own,price,shares,cost,weight){
 
   J <- length(price)
   alpha <- param[1]
-  delta <- param[2:(1+J)]
+
+
+  delta0 <- log(shares) - log(1-sum(shares)) - alpha*price
+
+  find_d <- multiroot(f = match_share, start = delta0,
+                      price = price, alpha = alpha, shares_obs = shares,
+                      nest_allocation = NA, mu = NA)
+
+  delta <- find_d$root
 
   x0 <- price
   out1 <- BBoptim(f = bertrand_foc, par = x0,

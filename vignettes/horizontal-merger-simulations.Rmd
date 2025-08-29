@@ -134,7 +134,7 @@ Then use this function to recover the demand parameters.
  of jacobian(). Need optim() -->
 
 ```{r, results = "hide", warning=FALSE}
-x00 <- c(-1,1,1,1)
+x00 <- c(-1)
 wt_matrix <- diag(c(1,1,1,1000,1000,1000))
 
 out1 <- optim(f = bertrand_calibrate, par = x00, 
@@ -151,6 +151,9 @@ out1 <- optim(f = bertrand_calibrate, par = x00,
 # note that this optimization recovers the true demand parameters
 out1$par
 alpha
+
+delta_cal <- log(share1) - log(1-sum(share1)) - out1$par*p1
+delta_cal
 delta
 ```
 
@@ -168,7 +171,7 @@ c_obs
 ```
 
 ```{r, results = "hide", warning=FALSE}
-x00 <- c(-1,1,1,1)
+x00 <- c(-1)
 wt_matrix <- diag(c(1,1,1,1000,1000,1000))
 
 out1b <- optim(f = bertrand_calibrate, par = x00, 
@@ -185,6 +188,9 @@ out1b <- optim(f = bertrand_calibrate, par = x00,
 # note that this optimization recovers the true demand parameters
 out1b$par
 alpha
+
+delta_cal <- log(share1) - log(1-sum(share1)) - out1b$par*p1
+delta_cal
 delta
 ```
 

@@ -5,6 +5,8 @@
 #' @param own Ownership matrix
 #' @param cost Marginal costs for each product
 #' @param weight Weighting matrix
+#' @param returnOutcomes logical; should equilibrium objects be returned (mean
+#' value parameter, prices, shares, costs) as a list.
 #'
 #' @returns Distance between observed values and model predicted values for
 #' prices and shares
@@ -31,7 +33,8 @@
 # add default for weight matrix
 
 
-bertrand_calibrate <- function(param,own,price,shares,cost,weight){
+bertrand_calibrate <- function(param,own,price,shares,cost,weight,
+                               returnOutcomes = FALSE){
 
   J <- length(price)
   alpha <- param[1]
@@ -51,12 +54,40 @@ bertrand_calibrate <- function(param,own,price,shares,cost,weight){
                   delta = delta, cost = cost,
                   sumFOC = TRUE)
 
-  p1 <- out1$par
-  share1 <- (exp(delta + alpha*p1))/(1+sum(exp(delta + alpha*p1)))
+  p_model <- out1$par
+  share_m <- (exp(delta + alpha*p_model))/(1+sum(exp(delta + alpha*p_model)))
 
-  pdiff <- price - p1
-  sdiff <- shares - share1
+  pdiff <- price - p_model
+  sdiff <- shares - share_m
 
-  objfxn <- c(pdiff,sdiff) %*% weight %*% c(pdiff,sdiff)
-  return(objfxn)
+  if (returnOutcomes == FALSE) {
+    objfxn <- c(pdiff,sdiff) %*% weight %*% c(pdiff,sdiff)
+    return(objfxn)
+  }
+
+  if (returnOutcomes == TRUE) {
+
+    meancost <- mean(cost, na.rm = TRUE)
+    x00 <- ifelse(!is.na(cost), cost, meancost)
+
+    out_cost <- optim(f = bertrand_foc_c, par = x00,
+                      price = price, own = own, alpha = alpha,
+                      delta = delta, sumFOC = TRUE,
+                      control = list(maxit = 1500) )
+
+    cost_cal <- out_cost$par
+
+    if (out_cost$convergence != 0) {
+      warning(paste0("Cost calibration did not converge with code "),
+              out_cost$convergence)
+    }
+
+
+    return(list("FOCs" = c(pdiff,sdiff),
+                "delta_cal" = delta,
+                "p_model" = p_model,
+                "share_m" = share_m,
+                "cost_cal" = cost_cal) )
+  }
+
 }

@@ -7,8 +7,7 @@
 bertrand_calibrate(param, own, price, shares, cost, weight)
 }
 \arguments{
-\item{param}{Price coefficient alpha and mean values delta, parameters to
-calibrate}
+\item{param}{Price coefficient alpha parameter to calibrate}
 
 \item{own}{Ownership matrix}
 
@@ -19,14 +18,17 @@ calibrate}
 \item{weight}{Weighting matrix}
 }
 \value{
-The first-order conditions
+Distance between observed values and model predicted values for
+prices and shares
 }
 \description{
 Bertrand model calibration
 }
 \details{
 This function calculate the first-order conditions from a Bertrand
-price-setting model of competition
+price-setting model of competition. This function is only for standard logit
+demand. For nested logit or generalized nested logit, see
+bertrand_calibrate_gnl().
 }
 \examples{
 TO BE ADDED.

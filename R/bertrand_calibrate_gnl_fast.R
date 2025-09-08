@@ -2,7 +2,7 @@
 #'
 #' @param param Vector of demand parameters (alpha,mu)
 #' @param price Observed prices
-#' @param ownership Ownership matrix
+#' @param own Ownership matrix
 #' @param share Observed market shares
 #' @param cost Marginal costs for each product
 #' @param weight Vector of weights given to prices, shares, diversions, respectively
@@ -44,7 +44,7 @@
 
 ## NOTE: This function is not exported in mergersim
 
-bertrand_calibrate_gnl_fast <- function(param,ownership,price,shares,cost,
+bertrand_calibrate_gnl_fast <- function(param,own,price,shares,cost,
                                         weight,nest_allocation,div_matrix,
                                         mu_constraint_matrix = NA,
                                         div_calc_marginal = TRUE,
@@ -120,7 +120,7 @@ bertrand_calibrate_gnl_fast <- function(param,ownership,price,shares,cost,
   ## BBoptim or multiroot. If there are missing costs, use BBoptim
   if (optimizer == "BBoptim") {
     out1 <- BBoptim(f = bertrand_foc, par = x0,
-                    own = ownership, alpha= alpha,
+                    own = own, alpha= alpha,
                     delta = delta, cost = cost,
                     nest_allocation = a_jk, mu = mu,
                     sumFOC = TRUE, control = list(trace=FALSE))
@@ -129,7 +129,7 @@ bertrand_calibrate_gnl_fast <- function(param,ownership,price,shares,cost,
   }
   if (optimizer == "multiroot") {
     out1 <- multiroot(f = bertrand_foc, start = x0,
-                      own = ownership, alpha= alpha,
+                      own = own, alpha= alpha,
                       delta = delta, cost = cost,
                       nest_allocation = a_jk, mu = mu)
 

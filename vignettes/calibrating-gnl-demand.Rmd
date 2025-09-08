@@ -110,7 +110,7 @@ Check that we can recover the true demand parameters when full information about
 wt_vector <- c(1,1,1)
 
 bertrand_calibrate_gnl(param = c(alpha_true,mu2),
-                            ownership = own_pre, price = p_R1+.1,
+                            own = own_pre, price = p_R1+.1,
                             shares = shares1, cost  = c_j,
                             weight = wt_vector, nest_allocation=a1,
                             div_matrix = true_div)
@@ -119,7 +119,7 @@ bertrand_calibrate_gnl(param = c(alpha_true,mu2),
 x00 <- c(alpha_true,mu2)-.1
 
 out2 <- optim(f = bertrand_calibrate_gnl, par = x00,
-               ownership = own_pre, price = p_R1,
+               own = own_pre, price = p_R1,
                shares = shares1, cost  = c_j,
                weight = wt_vector, nest_allocation=a1, 
                div_matrix = true_div )
@@ -251,7 +251,7 @@ x00 <- c(alpha_true,mu3[1])-.2
 
 
 out3 <- optim(f = bertrand_calibrate_gnl, par = x00,
-              ownership = own_pre, price = p_R3,
+              own = own_pre, price = p_R3,
               shares = shares3, cost  = c_j,
               weight = wt_vector, nest_allocation=a3, div_matrix = true_div,
               div_calc_marginal = TRUE,
@@ -341,7 +341,7 @@ x00 <- c(alpha_true,0.7,0.7)-.2
 mu_constraints <- matrix(c(1,1,0,0,0,0,0,1,1,1), nrow = 5, ncol = 2)
 
 out4 <- optim(f = bertrand_calibrate_gnl, par = x00,
-              ownership = own_pre, price = p_R3,
+              own = own_pre, price = p_R3,
               shares = shares3, cost  = c_j_NA,
               weight = wt_vector, nest_allocation=a3, 
               div_matrix = true_div_NA,

@@ -2,7 +2,7 @@
 #'
 #' @param param Vector of demand parameters (alpha,mu)
 #' @param price Observed prices
-#' @param ownership Ownership matrix
+#' @param own Ownership matrix
 #' @param share Observed market shares
 #' @param cost Marginal costs for each product
 #' @param weight Vector of length four with weights given to prices, shares,
@@ -49,7 +49,7 @@
 ##################################################################
 
 
-bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
+bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
                                    weight = c(1,1,1,1),
                                    nest_allocation,div_matrix,
                                    mu_constraint_matrix = NA,
@@ -152,7 +152,7 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
 
   if (optimizer_c == "optim") {
     out_cost <- optim(f = bertrand_foc_c, par = x06,
-                      price = price, own = ownership, alpha = alpha,
+                      price = price, own = own, alpha = alpha,
                       delta = delta,
                       nest_allocation=a_jk, mu=mu, sumFOC = TRUE,
                       control = list(maxit = maxitval_c) )
@@ -166,7 +166,7 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
 
   if (optimizer_c == "BBoptim") {
     out_cost <- BBoptim(fn = bertrand_foc_c, par = x06,
-                      price = price, own = ownership, alpha = alpha,
+                      price = price, own = own, alpha = alpha,
                       delta = delta,
                       nest_allocation=a_jk, mu=mu, sumFOC = TRUE,
                       control = list(maxit = maxitval_c) )
@@ -181,7 +181,7 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
   ## BBoptim or multiroot. If there are missing costs, use BBoptim
   if (optimizer == "BBoptim") {
     out1 <- BBoptim(f = bertrand_foc, par = x0,
-                    own = ownership, alpha= alpha,
+                    own = own, alpha= alpha,
                     delta = delta, cost = cost_cal,
                     nest_allocation = a_jk, mu = mu,
                     sumFOC = TRUE, control = list(trace=FALSE, maxit = maxitval))
@@ -195,7 +195,7 @@ bertrand_calibrate_gnl <- function(param,ownership,price,shares,cost,
   }
   if (optimizer == "multiroot") {
     out1 <- multiroot(f = bertrand_foc, start = x0,
-                      own = ownership, alpha= alpha,
+                      own = own, alpha= alpha,
                       delta = delta, cost = cost_cal,
                       nest_allocation = a_jk, mu = mu)
 

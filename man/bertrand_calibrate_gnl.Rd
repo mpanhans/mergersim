@@ -6,7 +6,7 @@
 \usage{
 bertrand_calibrate_gnl(
   param,
-  ownership,
+  own,
   price,
   shares,
   cost,
@@ -26,7 +26,7 @@ bertrand_calibrate_gnl(
 \arguments{
 \item{param}{Vector of demand parameters (alpha,mu)}
 
-\item{ownership}{Ownership matrix}
+\item{own}{Ownership matrix}
 
 \item{price}{Observed prices}
 

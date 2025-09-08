@@ -6,7 +6,7 @@
 \usage{
 bertrand_calibrate_mu(
   param,
-  ownership,
+  own,
   alpha,
   price,
   shares,
@@ -24,7 +24,7 @@ bertrand_calibrate_mu(
 \arguments{
 \item{param}{Vector of nesting parameters (mu)}
 
-\item{ownership}{Ownership matrix}
+\item{own}{Ownership matrix}
 
 \item{alpha}{Value of price coefficient, to be held fixed during calibration}
 

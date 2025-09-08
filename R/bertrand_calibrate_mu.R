@@ -3,7 +3,7 @@
 #' @param param Vector of nesting parameters (mu)
 #' @param alpha Value of price coefficient, to be held fixed during calibration
 #' @param price Observed prices
-#' @param ownership Ownership matrix
+#' @param own Ownership matrix
 #' @param share Observed market shares
 #' @param cost Marginal costs for each product
 #' @param weight Vector of weights given to prices, shares, diversions, respectively
@@ -48,7 +48,7 @@
 ## NOTE: These functions are not currently exported in mergersim
 
 
-bertrand_calibrate_mu <- function(param,ownership,alpha,price,shares,cost,
+bertrand_calibrate_mu <- function(param,own,alpha,price,shares,cost,
                                   weight,nest_allocation,div_matrix,
                                   mu_constraint_matrix = NA,
                                   div_calc_marginal = TRUE,
@@ -131,7 +131,7 @@ bertrand_calibrate_mu <- function(param,ownership,alpha,price,shares,cost,
   x06 <- price * 0.5
 
   out_cost <- optim(f = bertrand_foc_c, par = x06,
-                    price = price, own = ownership, alpha = alpha,
+                    price = price, own = own, alpha = alpha,
                     delta = delta,
                     nest_allocation=a_jk, mu=mu, sumFOC = TRUE,
                     control = list(maxit = 1000) )
@@ -142,7 +142,7 @@ bertrand_calibrate_mu <- function(param,ownership,alpha,price,shares,cost,
   ## BBoptim or multiroot. If there are missing costs, use BBoptim
   if (optimizer == "BBoptim") {
     out1 <- BBoptim(f = bertrand_foc, par = x0,
-                    own = ownership, alpha= alpha,
+                    own = own, alpha= alpha,
                     delta = delta, cost = cost_cal,
                     nest_allocation = a_jk, mu = mu,
                     sumFOC = TRUE, control = list(trace=FALSE))
@@ -151,7 +151,7 @@ bertrand_calibrate_mu <- function(param,ownership,alpha,price,shares,cost,
   }
   if (optimizer == "multiroot") {
     out1 <- multiroot(f = bertrand_foc, start = x0,
-                      own = ownership, alpha= alpha,
+                      own = own, alpha= alpha,
                       delta = delta, cost = cost_cal,
                       nest_allocation = a_jk, mu = mu)
 
@@ -201,7 +201,7 @@ bertrand_calibrate_mu <- function(param,ownership,alpha,price,shares,cost,
 
 
 
-bertrand_calibrate_alpha <- function(param,ownership,price,shares,cost,
+bertrand_calibrate_alpha <- function(param,own,price,shares,cost,
                                      weight,nest_allocation,div_matrix,
                                      mu_start,
                                      mu_constraint_matrix = NA,
@@ -228,7 +228,7 @@ bertrand_calibrate_alpha <- function(param,ownership,price,shares,cost,
 
   out_val <- optim(f = Bert_foc_gnl_calibrate_mu, par = mu_start,
                    alpha = alpha,
-                   ownership = ownership, price = price,
+                   own = own, price = price,
                    shares = shares, cost  = cost,
                    weight = weight, nest_allocation = nest_allocation,
                    div_matrix = div_matrix,

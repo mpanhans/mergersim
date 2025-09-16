@@ -39,14 +39,7 @@ bertrand_calibrate <- function(param,own,price,shares,cost,weight,
   J <- length(price)
   alpha <- param[1]
 
-
-  delta0 <- log(shares) - log(1-sum(shares)) - alpha*price
-
-  find_d <- multiroot(f = match_share, start = delta0,
-                      price = price, alpha = alpha, shares_obs = shares,
-                      nest_allocation = NA, mu = NA)
-
-  delta <- find_d$root
+  delta <- log(shares) - log(1-sum(shares)) - alpha*price
 
   x0 <- price
   out1 <- BBoptim(f = bertrand_foc, par = x0,

@@ -21,7 +21,7 @@ library(mergersim)
 
 # Introduction
 
-This repository contains functions that can be used to replicate the results from Panhans and Taragin 2023, including both calibration and merger simulation. This vignette illustrates how the functions can be used for the calibration and merger simulation of all four models analyzed in that paper.
+This repository contains functions that can be used to replicate the results from Panhans and Taragin (2023) "Consequences of model choice in predicting horizontal merger effects" <https://doi.org/10.1016/j.ijindorg.2023.102986>. This vignette illustrates how the functions can be used for the calibration and merger simulation of all four models analyzed in the paper.
 
 Simple models of competition that can be calibrated with only a few inputs can be useful to readily analyze certain mergers. For example, such an exercise can be useful when screening for possible concern in a transaction. Even with simple models, however, there are several nuances to consider. This document covers four models of differentiated product competition analyzed in Panhans and Taragin 2023: Bertrand, second score auction, a classic Nash bargaining model that nests Bertrand, and an alternative bargaining model formulation that nests the second score auction.
 
@@ -200,7 +200,7 @@ The calibrated parameters closely match the true parameters. Again, predicted me
 
 # Second score auction
 
-The second score auction model is discussed in detail in Miller (2014). Briefly, it assumes that firms are submitting bids to the customer, and has an equilibrium condition where suppliers' dominant strategy is to bid their costs. The customer selects the supplier that creates the greatest surplus, and the price is set to make the customer indifferent between the best option at the equilibrium price and obtaining the second best option at cost.
+The second score auction model is discussed in detail in Miller (2014) <https://doi.org/10.1016/j.ijindorg.2014.10.001>. Briefly, it assumes that firms are submitting bids to the customer, and has an equilibrium condition where suppliers' dominant strategy is to bid their costs. The customer selects the supplier that creates the greatest surplus, and the price is set to make the customer indifferent between the best option at the equilibrium price and obtaining the second best option at cost.
 
 Assuming logit demand, the pricing condition in the second score auction is given by:
 \begin{equation*}

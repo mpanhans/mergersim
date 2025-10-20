@@ -275,6 +275,11 @@ p4_post <- cost4 + log(1 - own_post%*%share2)/(alpha4*own_post%*%share2)
 (p4_post - p4)/p4
 ```
 
+Note that if the cost is observed for only one product, the model is exactly identified, and the true price coefficient parameter $\alpha$ can be calculated analytically. For example, the calculation below recovers the true price coefficient assuming that only the cost/margin of product 1 is available. The optimizer used above is useful when margins are available for more than one product.
+
+```{r}
+1/(p4[1] - c_obs[1]) * log(1 - share2[1]) / share2[1]
+```
 
 
 # Traditional Bargaining Model (nests Bertrand)

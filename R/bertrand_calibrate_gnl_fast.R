@@ -35,9 +35,6 @@
 #' TO BE ADDED.
 
 
-## useOldWeight is a legacy option in case want to use old weighting in the
-## objective function
-
 ##################################################################
 # Bertrand model first-order conditions for calibration with GNL demand
 ##################################################################
@@ -48,8 +45,7 @@ bertrand_calibrate_gnl_fast <- function(param,own,price,shares,cost,
                                         weight,nest_allocation,div_matrix,
                                         mu_constraint_matrix = NA,
                                         div_calc_marginal = TRUE,
-                                        optimizer="BBoptim",
-                                        useOldWeight = FALSE){
+                                        optimizer="BBoptim"){
 
   # If GNL, define GNL objects
   a_jk <- nest_allocation
@@ -89,8 +85,6 @@ bertrand_calibrate_gnl_fast <- function(param,own,price,shares,cost,
             in mu_constraint_matrix")
   }
 
-
-
   mu <- mu_constraint_matrix %*% mu_prime
 
   J <- length(price)
@@ -105,15 +99,12 @@ bertrand_calibrate_gnl_fast <- function(param,own,price,shares,cost,
 
   # sometimes, multiroot inexplicably fails inside of optimization. Set to delta0.
 
-  #useOld <- TRUE  # if want to use old version of function, which had no correction
-  useOld <- FALSE # if want to use new version, with delta NA correction
-
-  if (useOld == FALSE) {
+  # old version of function had no correction
     if (anyNA(delta)) {
       delta <- delta0
       warning("Multiroot failed to find mean values that matched shares.")
     }
-  }
+
 
   x0 <- price
 
@@ -142,17 +133,6 @@ bertrand_calibrate_gnl_fast <- function(param,own,price,shares,cost,
                                  marginal = div_calc_marginal)
 
 
-
-  if (useOldWeight == TRUE) {
-
-    pdiff <- price - p_model
-    sdiff <- shares - share_m
-    div_diff <- sum((as.numeric(div_matrix - diversions_m)^2), na.rm = TRUE)
-
-    objfxn <- c(pdiff,sdiff,div_diff) %*% weight %*% c(pdiff,sdiff,div_diff)
-  }
-
-  if (useOldWeight == FALSE) {
     pdiff <- ((price - p_model)^2) * weight[1]
     sdiff <- ((shares - share_m)^2) * 1000 * weight[2]
     div_diff <- ((as.numeric(div_matrix - diversions_m)^2)*100 * weight[3])
@@ -160,7 +140,6 @@ bertrand_calibrate_gnl_fast <- function(param,own,price,shares,cost,
     # objective function
 
     objfxn <- sum(pdiff) + sum(sdiff) + sum(div_diff, na.rm = TRUE)
-  }
 
   return(objfxn)
 

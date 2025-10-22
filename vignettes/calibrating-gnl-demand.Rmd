@@ -14,16 +14,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(mergersim)
-```
-
 
 # Introduction
 
 This vignette illustrates how to calibrate a generalized nested logit (GNL) demand system assuming a differentiated product Bertrand price-setting model of competition. The notation follows Chapter 4 of Train 2000. The functions used here can be used to replicate the results in Panhans and Wiemer 2025. For further details, see that paper and Wen and Koppelman (2001) "The generalized nested logit model" <https://doi.org/10.1016/S0191-2615(00)00045-X>.
 
 We begin with load packages that will be useful. BB and rootSolve are packages with optimization tools. The package numDeriv is needed for the jacobian() function.
+
+```{r setup}
+library(mergersim)
+```
 
 ```{r}
 library(BB)
@@ -240,7 +240,7 @@ true_div <- diversion_calc(price=p_R3,alpha=alpha_true,delta=delta_true,
 
 Now we will see if with the observed market prices, shares, diversions, and costs, we can recover the true demand parameters through calibration. We will first consider the full information case where all costs are known; after, we will consider the case where the costs of only a subset of products are available, and diversions are only known among a subset of the products.
 
-For illustration, suppose that we do know that the $K=5$ nesting parameters have the same value, but we need to calibrate that value. Allowing each nesting parameter value to freely, the function can still calibrate the true values, however the code takes longer to converge. By providing the optimization function with a starting value vector with two elements, the calibration routine will assume that the analyst intends to assume all nesting parameters have the same value.
+For illustration, suppose that we correctly assume that the $K=5$ nesting parameters have the same value, but we need to calibrate that value. Allowing each nesting parameter value to freely, the function can still calibrate the true values, however the code takes longer to converge. By providing the optimization function with a starting value vector with two elements, the calibration routine will assume that the analyst intends to assume all nesting parameters have the same value.
 
 
 ```{r, results = "hide", warning=FALSE}

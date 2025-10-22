@@ -17,10 +17,10 @@ bertrand_calibrate_gnl(
   div_calc_marginal = TRUE,
   optimizer = "BBoptim",
   optimizer_c = "optim",
-  useOldWeight = FALSE,
   returnOutcomes = FALSE,
   maxitval = 1500,
-  maxitval_c = 1500
+  maxitval_c = 1500,
+  fast_version = FALSE
 )
 }
 \arguments{

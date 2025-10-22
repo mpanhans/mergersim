@@ -4,7 +4,15 @@
 \alias{bertrand_calibrate}
 \title{Bertrand model calibration}
 \usage{
-bertrand_calibrate(param, own, price, shares, cost, weight)
+bertrand_calibrate(
+  param,
+  own,
+  price,
+  shares,
+  cost,
+  weight,
+  returnOutcomes = FALSE
+)
 }
 \arguments{
 \item{param}{Price coefficient alpha parameter to calibrate}
@@ -16,6 +24,9 @@ bertrand_calibrate(param, own, price, shares, cost, weight)
 \item{cost}{Marginal costs for each product}
 
 \item{weight}{Weighting matrix}
+
+\item{returnOutcomes}{logical; should equilibrium objects be returned (mean
+value parameter, prices, shares, costs) as a list.}
 }
 \value{
 Distance between observed values and model predicted values for

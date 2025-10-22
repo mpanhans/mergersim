@@ -113,7 +113,8 @@ bertrand_calibrate_gnl(param = c(alpha_true,mu2),
                             own = own_pre, price = p_R1+.1,
                             shares = shares1, cost  = c_j,
                             weight = wt_vector, nest_allocation=a1,
-                            div_matrix = true_div)
+                            div_matrix = true_div,
+                       fast_version = FALSE)
 
 
 x00 <- c(alpha_true,mu2)-.1
@@ -122,7 +123,8 @@ out2 <- optim(f = bertrand_calibrate_gnl, par = x00,
                own = own_pre, price = p_R1,
                shares = shares1, cost  = c_j,
                weight = wt_vector, nest_allocation=a1, 
-               div_matrix = true_div )
+               div_matrix = true_div,
+              fast_version = FALSE)
 ```
 
 ```{r}
@@ -255,6 +257,7 @@ out3 <- optim(f = bertrand_calibrate_gnl, par = x00,
               shares = shares3, cost  = c_j,
               weight = wt_vector, nest_allocation=a3, div_matrix = true_div,
               div_calc_marginal = TRUE,
+              fast_version = TRUE,
               control = list(maxit = 1000))
 
 ```
@@ -346,6 +349,7 @@ out4 <- optim(f = bertrand_calibrate_gnl, par = x00,
               weight = wt_vector, nest_allocation=a3, 
               div_matrix = true_div_NA,
               mu_constraint_matrix = mu_constraints,
+              fast_version = TRUE,
               control = list(maxit = 1000) )
 
 ```

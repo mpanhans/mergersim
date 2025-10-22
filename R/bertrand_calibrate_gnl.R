@@ -55,7 +55,8 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
                                    optimizer_c="optim",
                                    returnOutcomes = FALSE,
                                    maxitval = 1500,
-                                   maxitval_c = 1500){
+                                   maxitval_c = 1500,
+                                   fast_version = FALSE){
 
   # If GNL, define GNL objects
   a_jk <- nest_allocation
@@ -66,8 +67,15 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
 
 
   #### checks on weighting vector ####
+  if (fast_version == FALSE) {
   if (length(weight) != 4) {
     warning("Weight vector should be of length 4.")
+  }
+  }
+  if (fast_version == TRUE) {
+    if (length(weight) != 3 & length(weight) != 4) {
+      warning("Weight vector should be of length 3.")
+    }
   }
 
 
@@ -125,6 +133,9 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
 
   x0 <- price
 
+  #### Cost calibration. Only needed for fast=FALSE version.
+  if (fast_version == FALSE) {
+
   ## NEW: Given observed prices, and current guess of demand parameter values,
   ## back out costs consistent with FOCs.
   #x06 <- price * 0.5
@@ -167,6 +178,11 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
       warning(paste0("Cost calibration did not converge with code "),out_cost$convergence)
     }
   }
+  }
+
+  if (fast_version == TRUE) {
+    cost_cal <- cost
+  }
 
   ## BBoptim or multiroot. If there are missing costs, use BBoptim
   if (optimizer == "BBoptim") {
@@ -197,8 +213,10 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
                                  nest_allocation=a_jk,mu=mu,
                                  marginal = div_calc_marginal)
 
-  # Still consider whether matchCost = FALSE should be an available option.
 
+  if (fast_version == FALSE) {
+
+  # Still consider whether matchCost = FALSE should be an available option.
   matchCost <- TRUE
 
   ## objective function with new weight method
@@ -225,6 +243,27 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
                 "cost_cal" = cost_cal,
                 "diversions_m" = diversions_m) )
   }
+  }
 
+  if (fast_version == TRUE) {
+    pdiff <- ((price - p_model)^2) * weight[1]
+    sdiff <- ((shares - share_m)^2) * 1000 * weight[2]
+    div_diff <- ((as.numeric(div_matrix - diversions_m)^2)*100 * weight[3])
+    # scaling is so that default is somewhat sensible across components of
+    # objective function
+
+    objfxn <- sum(pdiff) + sum(sdiff) + sum(div_diff, na.rm = TRUE)
+
+    if (returnOutcomes == FALSE) {
+      return(objfxn)
+    }
+    if (returnOutcomes == TRUE) {
+      return(list("FOCs" = c(pdiff,sdiff,div_diff),
+                  "delta_cal" = delta,
+                  "p_model" = p_model,
+                  "share_m" = share_m,
+                  "diversions_m" = diversions_m) )
+    }
+  }
 }
 

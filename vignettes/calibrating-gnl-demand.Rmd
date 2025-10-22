@@ -107,7 +107,7 @@ Check that we can recover the true demand parameters when full information about
 ```{r, results = "hide", warning=FALSE}
 
 
-wt_vector <- c(1,1,1)
+wt_vector <- c(1,1,1,1)
 
 bertrand_calibrate_gnl(param = c(alpha_true,mu2),
                             own = own_pre, price = p_R1+.1,
@@ -247,7 +247,8 @@ For illustration, suppose that we correctly assume that the $K=5$ nesting parame
 
 ```{r, results = "hide", warning=FALSE}
 
-wt_vector <- c(50,10,100,200)
+#wt_vector <- c(50,10,100,200)
+wt_vector <- c(50,10,100)
 
 x00 <- c(alpha_true,mu3[1])-.2
 

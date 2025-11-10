@@ -108,6 +108,7 @@ ssa_calibrate_gnl <- function(param, own, price,
 
   for (i in 1:J) {
     delta_cf <- delta
+
     delta_cf[own[i,] == 1] <- -Inf
 
     logsum_i <- share_calc(price = cost, delta = delta_cf,

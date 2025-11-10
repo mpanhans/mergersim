@@ -14,10 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(mergersim)
-```
-
 
 # Introduction
 
@@ -27,7 +23,11 @@ Simple models of competition that can be calibrated with only a few inputs can b
 
 ## Preliminaries
 
-First, we load packages that will be useful. BB and rootSolve are packages with optimization tools. The package numDeriv is needed for the jacobian() function.
+First, we load the mergersim package and others that will be useful. BB and rootSolve are packages with optimization tools. The package numDeriv is needed for the jacobian() function.
+
+```{r setup}
+library(mergersim)
+```
 
 ```{r}
 library(BB)
@@ -45,8 +45,8 @@ We will assume that the preference shock follows the logit or type 1 extreme val
 Suppose that the true marginal cost of production for each good $j$ is known, and let those costs and the true demand parameters be given by:
 
 ```{r}
-alpha  <- -0.9
-delta <- c(.81,.93,.82)
+alpha_true  <- -0.9
+delta_true <- c(.81,.93,.82)
 c_j <- c(.05,.31,.30)
 ```
 
@@ -86,12 +86,12 @@ Then use multiroot to find the equilibrium prices that set the FOCs to zero:
 ```{r}
 x0 <- c_j*1.1
 out1 <- multiroot(f = bertrand_foc, start = x0, 
-                  own = own_pre, alpha= alpha, 
-                  delta = delta, cost = c_j)
+                  own = own_pre, alpha= alpha_true, 
+                  delta = delta_true, cost = c_j)
 
 p1 <- out1$root
 p1
-share1 <- (exp(delta + alpha*p1))/(1+sum(exp(delta + alpha*p1)))
+share1 <- (exp(delta_true + alpha_true*p1))/(1+sum(exp(delta_true + alpha_true*p1)))
 share1
 ```
 
@@ -102,12 +102,12 @@ To find the new equilibrium after the merger, simply pass the post-merger market
 ```{r}
 x0 <- c_j*1.1
 out1_post <- multiroot(f = bertrand_foc ,start = x0, 
-                  own = own_post, alpha= alpha, 
-                  delta = delta, cost = c_j)
+                  own = own_post, alpha= alpha_true, 
+                  delta = delta_true, cost = c_j)
 
 p1_post <- out1_post$root
 p1_post
-share1_post <- (exp(delta + alpha*p1_post))/(1+sum(exp(delta + alpha*p1_post)))
+share1_post <- (exp(delta_true + alpha_true*p1_post))/(1+sum(exp(delta_true + alpha_true*p1_post)))
 share1_post
 
 # margins. Note that multi-product firm sets same level margins.
@@ -150,11 +150,11 @@ out1 <- optim(f = bertrand_calibrate, par = x00,
 
 # note that this optimization recovers the true demand parameters
 out1$par
-alpha
+alpha_true
 
 delta_cal <- log(share1) - log(1-sum(share1)) - out1$par*p1
 delta_cal
-delta
+delta_true
 ```
 
 With the true demand parameters, the function bertrand_foc can be used to generate post-merger equilibrium prices and shares by changing the ownership matrix, and if desired the costs can also be changed to reflect merger efficiencies.
@@ -187,11 +187,11 @@ out1b <- optim(f = bertrand_calibrate, par = x00,
 
 # note that this optimization recovers the true demand parameters
 out1b$par
-alpha
+alpha_true
 
 delta_cal <- log(share1) - log(1-sum(share1)) - out1b$par*p1
 delta_cal
-delta
+delta_true
 ```
 
 The calibrated parameters closely match the true parameters. Again, predicted merger effects can be obtained using the bertrand_foc function and changing the ownership matrix, and if desired, the firm costs.
@@ -211,10 +211,10 @@ where $W_j$ denotes the set of all products that are owned by the same firm that
 Since we know the true parameters, we can use the margin condition from the SSA model to calculate the equilibrium shares, as well as pre-merger and post-merger prices. Therefore, we can also calculate the true price effect of the merger.
 
 ```{r, eval = TRUE}
-share2 <- (exp(delta + alpha*c_j))/(1+sum(exp(delta + alpha*c_j)))
+share2 <- (exp(delta_true + alpha_true*c_j))/(1+sum(exp(delta_true + alpha_true*c_j)))
 
-p2 <- c_j + log(1 - own_pre%*%share2)/(alpha*own_pre%*%share2)
-p2_post <- c_j + log(1 - own_post%*%share2)/(alpha*own_post%*%share2)
+p2 <- c_j + log(1 - own_pre%*%share2)/(alpha_true*own_pre%*%share2)
+p2_post <- c_j + log(1 - own_post%*%share2)/(alpha_true*own_post%*%share2)
 
 (p2_post - p2)/p2
 ```
@@ -292,9 +292,10 @@ Let's assume the demand parameters specified above are the true demand parameter
 x0 <- c_j*1.5
 
 out3 <- multiroot(f = bargain_foc, start = x0, own = own_pre, 
-                       alpha = alpha, delta = delta, cost = c_j, lambda = 0.5)
+                  alpha = alpha_true, delta = delta_true, cost = c_j,
+                  lambda = 0.5)
 p3 <- out3$root
-share3 <- (exp(delta + alpha*p3))/(1+sum(exp(delta + alpha*p3)))
+share3 <- (exp(delta_true + alpha_true*p3))/(1+sum(exp(delta_true + alpha_true*p3)))
 
 print(p3)
 print(share3)
@@ -330,9 +331,9 @@ out3 <- BBoptim(f = bargain_calibrate, par = x00,
 # finding good initial values is important.
 alpha3 <- out3$par[1]
 delta3 <- out3$par[2:4]
-alpha
+alpha_true
 alpha3
-delta
+delta_true
 delta3
 ```
 
@@ -350,9 +351,10 @@ Let's assume the demand parameters specified above are the true demand parameter
 x0 <- c_j*1.5
 
 out4 <- multiroot(f = ssbargain_foc, start = x0, own = own_pre, 
-                       alpha = alpha, delta = delta, cost = c_j, lambda = 0.5)
+                       alpha = alpha_true, delta = delta_true, 
+                  cost = c_j, lambda = 0.5)
 p4 <- out4$root
-share4 <- (exp(delta + alpha*c_j))/(1+sum(exp(delta + alpha*c_j)))
+share4 <- (exp(delta_true + alpha_true*c_j))/(1+sum(exp(delta_true + alpha_true*c_j)))
 
 print(p4)
 print(share4)
@@ -378,9 +380,9 @@ out4 <- BBoptim(f = ssbargain_calibrate, par = x00,
 # finding good initial values is important.
 alpha4 <- out4$par[1]
 delta4 <- out4$par[2:4]
-alpha
+alpha_true
 alpha4
-delta
+delta_true
 delta4
 ```
 
@@ -418,8 +420,8 @@ First, let's use the GNL function but input values for logit demand and show tha
 x0 <- p1*1.1
 
 out1 <- BBoptim(fn = bertrand_foc, par = x0, 
-                own = own_pre, alpha = alpha, 
-                delta = delta, cost = c_j, sumFOC = TRUE)
+                own = own_pre, alpha = alpha_true, 
+                delta = delta_true, cost = c_j, sumFOC = TRUE)
 
 p_R1 <- out1$par
 ```
@@ -438,8 +440,8 @@ But when we provide the function with the GNL structure that is different than t
 x0 <- p1*1.1
 
 out2 <- BBoptim(fn = bertrand_foc, par = x0, 
-                own = own_pre, alpha = alpha, 
-                delta = delta, cost = c_j,
+                own = own_pre, alpha = alpha_true, 
+                delta = delta_true, cost = c_j,
                 nest_allocation=a1, mu=mu2,
                 sumFOC = TRUE)
 
@@ -457,7 +459,7 @@ It may sometimes also be useful to have a function that computes a diversion rat
 This function can be used to obtain a diversion ratio matrix.
 
 ```{r}
-diversions <- diversion_calc(price=p_R2,alpha=alpha,delta=delta,
+diversions <- diversion_calc(price=p_R2,alpha=alpha_true,delta=delta_true,
                              nest_allocation=a1,mu=mu2)
 
 diversions
@@ -467,7 +469,7 @@ rowSums(diversions) # each row should sum to <1 because of outside option
 The above diversion ratio matrix is based on average diversion rates, which are computed based on removing a product from the choice set. Alternatively, one may be interested in marginal diversion ratios, which are the diversion rates based on a marginal increase in price for a good. For a standard logit demand system, these two diversion ratios are identical. But for more general demand systems, these two diversion ratios will not be identical. The marginal diversion can be computed by using the 'marginal' option in the function.
 
 ```{r}
-diversions2 <- diversion_calc(price=p_R2,alpha=alpha, delta=delta,
+diversions2 <- diversion_calc(price=p_R2,alpha=alpha_true, delta=delta_true,
                               nest_allocation=a1, mu=mu2, marginal = TRUE)
 
 diversions2
@@ -475,32 +477,4 @@ rowSums(diversions2) # each row should sum to <1 because of outside option
 ```
 
 
-## Second score auction
-
-The second score auction is straightforward to generalize to the GNL demand system. It only requires calculating the more general choice probabilities.
-
-
-```{r}
-## first show that GNL code with nesting parameter at logit gives same result as before
-
-share3_logit <- share_calc(price = c_j, delta=delta, alpha=alpha, 
-                               nest_allocation=a1, mu=mu1)
-
-p3 <- c_j + log(1 - own_pre%*%share3_logit)/(alpha*own_pre%*%share3_logit)
-p3_post <- c_j + log(1 - own_post%*%share3_logit)/(alpha*own_post%*%share3_logit)
-
-(p3_post - p3)/p3
-
-## Show different result when using GNL
-
-share3_nested <- share_calc(price = c_j, delta=delta, alpha=alpha, 
-                               nest_allocation=a1, mu=mu2)
-
-p3 <- c_j + log(1 - own_pre%*%share3_nested)/(alpha*own_pre%*%share3_nested)
-p3_post <- c_j + log(1 - own_post%*%share3_nested)/(alpha*own_post%*%share3_nested)
-
-(p3_post - p3)/p3
-
-
-```
 

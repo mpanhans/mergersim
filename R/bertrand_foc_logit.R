@@ -16,6 +16,7 @@
 #'
 #' @examples
 #' TO BE ADDED.
+#' @noRd
 
 
 

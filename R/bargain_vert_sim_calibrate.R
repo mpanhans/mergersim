@@ -37,8 +37,8 @@ bargain_vert_sim_calibrate <- function(lambda,price_w,own_down,own_up,
   out <- BBoptim(par = as.numeric(price_w), fn = bargain_foc_novert_sim,
                  own_down = own_down,
                  own_up = own_up, alpha= alpha, delta = delta,
-                 c_W = cost_w, c_R = cost_r, lambda = lambda,
-                 p_R = price_r)
+                 cost_w = cost_w, cost_r = cost_r, lambda = lambda,
+                 price_r = price_r)
 
   p_W1 <- out$par
   pdiff <- price_w - p_W1

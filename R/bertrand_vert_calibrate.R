@@ -141,7 +141,7 @@ bertrand_vert_calibrate_v2 <- function(param,own_down,price,shares,cost,p_W,weig
   x0 <- price
   out1 <- multiroot(f = bertrand_foc_novert ,start = x0,
                     own_down = own_down, alpha= alpha,
-                    delta = delta, cost = cost, p_W = p_W)
+                    delta = delta, cost = cost, price_w = p_W)
 
   p1 <- out1$root
   share1 <- (exp(delta + alpha*p1))/(1+sum(exp(delta + alpha*p1)))

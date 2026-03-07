@@ -2,7 +2,7 @@
 #'
 #' @param param Price coefficient, alpha
 #' @param own_down Ownership matrix for downstream firms
-#' @param price Downstream prices
+#' @param price_r Downstream prices
 #' @param shares Market shares
 #' @param cost Marginal costs of downstream firm
 #' @param price_w Upstream or wholesale prices, treated as costs by downstream
@@ -25,15 +25,15 @@
 # Calibrates the downstream Bertrand model of a vertical supply chain. Accounts
 # for price_w, which is treated as a cost by downstream firms.
 
-bertrand_vert_calibrate <- function(param,own_down,price,shares,cost,price_w){
+bertrand_vert_calibrate <- function(param,own_down,price_r,shares,cost,price_w){
 
-  J <- length(price)
+  J <- length(price_r)
   alpha <- param[1]
 
   s_0 <- 1 - sum(shares)
-  delta_j <- log(shares) - log(s_0) - alpha*price
+  delta_j <- log(shares) - log(s_0) - alpha*price_r
 
-  x0 <- price
+  x0 <- price_r
   out1 <- BBoptim(f = bertrand_foc_novert, par = x0,
                   own_down = own_down, alpha= alpha,
                   delta = delta_j, cost = cost,
@@ -43,7 +43,7 @@ bertrand_vert_calibrate <- function(param,own_down,price,shares,cost,price_w){
   p1 <- out1$par
   share1 <- (exp(delta_j + alpha*p1))/(1+sum(exp(delta_j + alpha*p1)))
 
-  pdiff <- price - p1
+  pdiff <- price_r - p1
   # sdiff <- shares - share1
 
   objfxn <- c(pdiff) %*% diag(J) %*% c(pdiff)

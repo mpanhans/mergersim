@@ -36,6 +36,7 @@
 #'
 #' @examples
 #' TO BE ADDED.
+#' @noRd
 
 
 ## useOldWeight is a legacy option in case want to use old weighting in the
@@ -199,7 +200,45 @@ bertrand_calibrate_mu <- function(param,own,alpha,price,shares,cost,
 }
 
 
-
+#' Calibrate Bertrand model with GNL demand
+#'
+#' @param param Vector of nesting parameters (alpha)
+#' @param alpha Value of price coefficient, to be held fixed during calibration
+#' @param price Observed prices
+#' @param own Ownership matrix
+#' @param share Observed market shares
+#' @param cost Marginal costs for each product
+#' @param weight Vector of weights given to prices, shares, diversions, respectively
+#' @param nest_allocation For generalized nested logit demand, a J-by-K matrix
+#' where each element (j,k) designates the membership of good j in nest k. Rows
+#' should sum to 1.
+#' @param div_matrix A matrix of observed diversions from product in row j to
+#' product in column k.
+#' @param mu_constraint_matrix is a (K-by-K') matrix indicating which nesting
+#' parameters are constrained to be equal to each other, where K is the
+#' number of nests and K' is the number of freely varying nesting
+#' parameters. mu_full = mu_constraint_matrix %*% mu_prime. Where mu_full
+#' is a vector of length K of the nesting parameter value for each nest,
+#' and mu_prime is a vector of length K' of parameters to be calculated.
+#' It must be the case that K is greater than K'.
+#' @param div_calc_marginal is a logical if function should match to marginal
+#' diversions (if TRUE) or second choice diversions (if FALSE). Default
+#' to TRUE.
+#' @param optimizer Which optimization routine should be used to find
+#' equilibrium prices, either BBoptim or multiroot
+#' @param returnOutcomes logical; should equilibrium objects be returned (mean
+#' value parameter, prices, shares, costs) as a list.
+#'
+#' @returns Difference between model predicted and observed values of
+#' prices, shares, and diversions.
+#'
+#' @details This function calibrates a Bertrand model with generalized nested
+#' logit (GNL) demand, using only first-order conditions that are available,
+#' i.e. first-order conditions for products that have non-missing costs.
+#'
+#' @examples
+#' TO BE ADDED.
+#' @noRd
 
 bertrand_calibrate_alpha <- function(param,own,price,shares,cost,
                                      weight,nest_allocation,div_matrix,

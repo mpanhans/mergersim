@@ -4,12 +4,12 @@
 \alias{match_share}
 \title{Market share calculations}
 \usage{
-match_share(delta, price, alpha, nest_allocation, mu, shares_obs)
+match_share(price, delta, alpha, nest_allocation = NA, mu = NA, shares_obs)
 }
 \arguments{
-\item{delta}{Mean values}
-
 \item{price}{Price}
+
+\item{delta}{Mean values}
 
 \item{alpha}{Price coefficient}
 

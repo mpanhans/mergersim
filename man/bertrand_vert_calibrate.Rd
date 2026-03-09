@@ -4,14 +4,14 @@
 \alias{bertrand_vert_calibrate}
 \title{Calibrate Bertrand model demand parameters}
 \usage{
-bertrand_vert_calibrate(param, own_down, price, shares, cost, price_w)
+bertrand_vert_calibrate(param, own_down, price_r, shares, cost, price_w)
 }
 \arguments{
 \item{param}{Price coefficient, alpha}
 
 \item{own_down}{Ownership matrix for downstream firms}
 
-\item{price}{Downstream prices}
+\item{price_r}{Downstream prices}
 
 \item{shares}{Market shares}
 

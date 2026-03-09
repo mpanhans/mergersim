@@ -200,12 +200,25 @@ bargain_NP_vert_seq <- function(w_start,product_max,price_w,own_down,own_up,alph
 #' @export
 
 
-bargain_NP_vert_seq_gnl <- function(w_start,product_max,price_w,own_down,own_up,alpha,delta,
+bargain_NP_vert_seq_gnl <- function(w_start,product_max,price_w,own_down,own_up,
+                                    alpha,delta,
                                     cost_w,cost_r,lambda,p_R0,sigma,
-                                    a_jk,B,mu,showAll = FALSE){
+                                    nest_allocation,mu,showAll = FALSE){
 
   price_w[product_max] <- w_start
   J <- length(price_w)
+
+  # If GNL, define GNL objects
+  a_jk <- nest_allocation
+  B <- 1*(a_jk > 0)
+
+  # If no GNL parameters, treat as standard logit. One nest with mu=1.
+  if (any(is.na(nest_allocation))) {
+    K <- 1
+    B <- matrix(1, ncol = 1, nrow = J)
+    a_jk <- B
+    mu <- rep(1,K)
+  }
 
   # construct ownership matrices
   own_fun_down <- function(x) {as.numeric(x == own_down)}

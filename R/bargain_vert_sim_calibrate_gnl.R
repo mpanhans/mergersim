@@ -38,7 +38,8 @@
 bargain_vert_sim_calibrate_gnl <- function(param,lambda=NA,cost_w=NA,
                                            own_down,own_up,alpha,delta,
                                            cost_r,price_r,price_w,
-                                           a_jk=NA, B=NA, mu=NA, sumFOC = FALSE){
+                                           nest_allocation=NA, mu=NA,
+                                           sumFOC = FALSE){
 
   # If cost_w is NA, assume we are calibrating it. If lambda is NA, assume we are
   # calibrating it. If both are NA, give an error. If neither are NA, give error.
@@ -57,7 +58,13 @@ bargain_vert_sim_calibrate_gnl <- function(param,lambda=NA,cost_w=NA,
 
   # If no GNL parameters, treat as standard logit. One nest. mu=1.
   J <- length(price_w)
-  if (any(is.na(B))) {
+
+  # If GNL, define GNL objects
+  a_jk <- nest_allocation
+  B <- 1*(a_jk > 0)
+
+  # If no GNL parameters, treat as standard logit. One nest with mu=1.
+  if (any(is.na(nest_allocation))) {
     K <- 1
     B <- matrix(1, ncol = 1, nrow = J)
     a_jk <- B

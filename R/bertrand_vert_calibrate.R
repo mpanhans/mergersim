@@ -75,11 +75,16 @@ bertrand_vert_calibrate <- function(param,own_down,price_r,shares,cost,price_w){
 ## Find retail costs that best match model to retail prices.
 
 bertrand_vert_calibrate_gnl <- function(cost, price_r,own_down,alpha,delta,price_w,
-                                        a_jk=NA,B=NA,mu=NA,sumFOC = FALSE){
+                                        nest_allocation=NA,mu=NA,sumFOC = FALSE){
 
-  # If no GNL parameters, treat as standard logit. One nest. mu=1.
   J <- length(price_r)
-  if (any(is.na(B))) {
+
+  # If GNL, define GNL objects
+  a_jk <- nest_allocation
+  B <- 1*(a_jk > 0)
+
+  # If no GNL parameters, treat as standard logit. One nest with mu=1.
+  if (any(is.na(nest_allocation))) {
     K <- 1
     B <- matrix(1, ncol = 1, nrow = J)
     a_jk <- B

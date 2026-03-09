@@ -29,10 +29,13 @@
 ##################################################################
 
 
-match_share <- function(delta,price,alpha,nest_allocation,mu,shares_obs){
+match_share <- function(price, delta, alpha, nest_allocation=NA, mu=NA,
+                        shares_obs){
+
   out <- share_calc(price=price, delta=delta, alpha=alpha,
                     nest_allocation=nest_allocation, mu=mu) -
     shares_obs
+
   return(out)
 }
 

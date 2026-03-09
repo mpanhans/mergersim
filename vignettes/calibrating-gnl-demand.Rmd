@@ -114,7 +114,7 @@ bertrand_calibrate_gnl(param = c(alpha_true,mu2),
                             shares = shares1, cost  = c_j,
                             weight = wt_vector, nest_allocation=a1,
                             div_matrix = true_div,
-                       fast_version = FALSE)
+                       fast_version = TRUE)
 
 
 x00 <- c(alpha_true,mu2)-.1
@@ -124,7 +124,7 @@ out2 <- optim(f = bertrand_calibrate_gnl, par = x00,
                shares = shares1, cost  = c_j,
                weight = wt_vector, nest_allocation=a1, 
                div_matrix = true_div,
-              fast_version = FALSE)
+              fast_version = TRUE)
 ```
 
 ```{r}

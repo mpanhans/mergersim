@@ -13,6 +13,8 @@
 #' @param returnLogsum logical; whether to return the denominator of the choice
 #' probabilities (also known as the log-sum term). Defaults to FALSE, in which
 #' case the function returns a vector with each product's choice probability.
+#' @param outsideOption logical; whether to include an outside option in choice
+#' set. Default is TRUE.
 #'
 #' @returns Returns vector of choice probabilities for each good
 #'
@@ -32,14 +34,15 @@
 #### Add check for whether rows of nest_allocation sum to 1.
 
 diversion_calc <- function(price,alpha,delta,nest_allocation=NA,mu=NA,
-                                           marginal = FALSE){
+                                           marginal = FALSE, outsideOption = TRUE){
 
   # Define GNL objects
   a_jk <- nest_allocation
   B <- 1*(a_jk > 0)
 
   obs_share <- share_calc(price = price, alpha = alpha, delta = delta,
-                              nest_allocation = a_jk, mu = mu)
+                          nest_allocation = a_jk, mu = mu,
+                          outsideOption = outsideOption)
 
   J <- length(delta)
   div_out <- matrix(0, nrow = J, ncol = J)
@@ -49,7 +52,8 @@ diversion_calc <- function(price,alpha,delta,nest_allocation=NA,mu=NA,
       delta_cf <- delta
       delta_cf[i] <- -Inf
       cf_sharei <- share_calc(price = price, alpha = alpha, delta = delta_cf,
-                              nest_allocation = a_jk, mu = mu)
+                              nest_allocation = a_jk, mu = mu,
+                              outsideOption = outsideOption)
       div_out[i,] <- (cf_sharei - obs_share)/obs_share[i]
     }
 
@@ -62,7 +66,8 @@ diversion_calc <- function(price,alpha,delta,nest_allocation=NA,mu=NA,
       p_cf <- price
       p_cf[i] <- p_cf[i] * 1.01   # increase price by 1%
       cf_sharei <- share_calc(price = p_cf, alpha = alpha, delta = delta,
-                              nest_allocation = a_jk, mu = mu)
+                              nest_allocation = a_jk, mu = mu,
+                              outsideOption = outsideOption)
       div_out[i,] <- (cf_sharei - obs_share)/(obs_share[i] - cf_sharei[i])
     }
 

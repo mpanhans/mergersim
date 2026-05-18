@@ -13,6 +13,8 @@
 #' @param returnLogsum logical; whether to return the denominator of the choice
 #' probabilities (also known as the log-sum term). Defaults to FALSE, in which
 #' case the function returns a vector with each product's choice probability.
+#' @param outsideOption logical; whether to include an outside option in choice
+#' set. Default is TRUE.
 #'
 #' @returns Returns vector of choice probabilities for each good
 #'
@@ -31,7 +33,7 @@
 ##################################################################
 
 share_calc <- function(price,delta,alpha,nest_allocation=NA,mu=NA,
-                           returnLogsum=FALSE){
+                           returnLogsum=FALSE, outsideOption = TRUE){
   # a is a J-by-K matrix of allocation parameters
   # B is a J-by-K matrix of indicators designating nests
   # mu is a vector length K of nesting parameters
@@ -60,8 +62,12 @@ share_calc <- function(price,delta,alpha,nest_allocation=NA,mu=NA,
   temp1 <- a_jk * matrix(rep(exp(V_j),K), ncol = K, nrow = J)
   temp2 <- temp1 ^ matrix(rep((1/mu),J), ncol = K, nrow = J, byrow = TRUE)
   P_k_num <- colSums(temp2) ^ mu  # P_k_num should be length K
-  P_k_denom <- sum(P_k_num)  # NO outside option
-  P_k_denom <- 1+sum(P_k_num)  # WITH outside option
+  if (outsideOption == TRUE) {
+    P_k_denom <- 1+sum(P_k_num)  # WITH outside option
+  } else {
+    P_k_denom <- sum(P_k_num)  # NO outside option
+    }
+
   P_k <- P_k_num / P_k_denom
   # P_k should be a length K vector that sums to 1
 

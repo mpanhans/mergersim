@@ -28,7 +28,6 @@ library(mergersim)
 
 library(BB)
 library(rootSolve)
-library(Matrix)
 library(antitrust)
 library(numDeriv)  # for jacobian() function
 ```

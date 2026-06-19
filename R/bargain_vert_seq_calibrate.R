@@ -70,7 +70,7 @@ bargain_vert_seq_calibrate <- function(c_w_val,price_w,own_down,
 
         lbc <- c_w_val[x]
         ubc <- price_r[x]
-        checktest <- optimize(f = bargain_NP_vert_seq,
+        checktest <- stats::optimize(f = bargain_NP_vert_seq,
                               product_max = x, price_w = p_W0,
                               own_down = own_down, own_up = own_up,
                               alpha= alpha, delta = delta,
@@ -120,7 +120,7 @@ bargain_vert_seq_calibrate <- function(c_w_val,price_w,own_down,
         # does adding epsilon still make sense in calibration function?
         w_start <- p_W0[x]
         # for calibration function ONLY, makes sense to hard code p_R0 = price_r
-        checktest <- optimize(f = bargain_NP_vert_seq,
+        checktest <- stats::optimize(f = bargain_NP_vert_seq,
                               product_max = x, price_w = p_W0,
                               own_down = own_down, own_up = own_up,
                               alpha= alpha, delta = delta,

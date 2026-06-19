@@ -35,7 +35,7 @@ ssa_calibrate <- function(param,own,price,share,cost,weight){
   p_hat <- cost + log(1 - own%*%share) / (alpha*own%*%share)
 
   FOC <- p_hat - price
-  FOC <- na.omit(FOC)
+  FOC <- stats::na.omit(FOC)
 
   objfxn <- c(FOC) %*% weight %*% c(FOC)
 

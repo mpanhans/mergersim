@@ -152,7 +152,7 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
   }
 
   if (optimizer_c == "optim") {
-    out_cost <- optim(f = bertrand_foc_c, par = x06,
+    out_cost <- stats::optim(f = bertrand_foc_c, par = x06,
                       price = price, own = own, alpha = alpha,
                       delta = delta,
                       nest_allocation=a_jk, mu=mu, sumFOC = TRUE,
@@ -403,7 +403,7 @@ bertrand_calibrate_mu <- function(param,own,alpha,price,shares,cost,
   ## back out costs consistent with FOCs.
   x06 <- price * 0.5
 
-  out_cost <- optim(f = bertrand_foc_c, par = x06,
+  out_cost <- stats::optim(f = bertrand_foc_c, par = x06,
                     price = price, own = own, alpha = alpha,
                     delta = delta,
                     nest_allocation=a_jk, mu=mu, sumFOC = TRUE,
@@ -537,7 +537,7 @@ bertrand_calibrate_alpha <- function(param,own,price,shares,cost,
   }
 
 
-  out_val <- optim(f = Bert_foc_gnl_calibrate_mu, par = mu_start,
+  out_val <- stats::optim(f = Bert_foc_gnl_calibrate_mu, par = mu_start,
                    alpha = alpha,
                    own = own, price = price,
                    shares = shares, cost  = cost,

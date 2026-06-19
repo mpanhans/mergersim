@@ -122,7 +122,7 @@ ssa_calibrate_gnl <- function(param, own, price,
   p_hat <- cost - 1/(alpha*own%*%shares) * (E_z - E_z_prime)
 
   FOC <- p_hat - price
-  FOC <- na.omit(FOC)
+  FOC <- stats::na.omit(FOC)
 
   objfxn <- c(FOC) %*% diag(weight) %*% c(FOC)
 

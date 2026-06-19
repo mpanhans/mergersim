@@ -249,8 +249,8 @@ bargain_NP_vert_seq_gnl <- function(w_start,product_max,price_w,own_down,own_up,
   outtest <- BB::BBoptim(f = bertrand_foc_vert_gnl, par = p_R0,
                      own_down = own_down, own_up = own_up,
                      alpha= alpha,
-                     delta = delta, cost_r = c_R_vec,
-                     price_w = price_w, cost_w = c_W_vec,
+                     delta = delta, cost_r = cost_r,
+                     price_w = price_w, cost_w = cost_w,
                      a_jk=a_jk, B=B, mu=mu, sumFOC = TRUE,
                      control = list(trace=FALSE),
                      quiet = TRUE)
@@ -450,7 +450,7 @@ bargain_NP_vert_seq2 <- function(w_start,product_max,p_W,own_down,own_up,alpha,d
 ## This version allows for overlapping nests.
 
 bargain_NP_vert_seq2_gnl <- function(w_start,product_max,p_W,own_down,own_up,alpha,delta,
-                                     c_W,c_R,lambda,p_R0,sigma,
+                                     cost_w,cost_r,lambda,p_R0,sigma,
                                      a_jk,B,mu,showAll = FALSE){
 
   p_W[product_max] <- w_start
@@ -485,8 +485,8 @@ bargain_NP_vert_seq2_gnl <- function(w_start,product_max,p_W,own_down,own_up,alp
   outtest <- BB::BBoptim(f = bertrand_foc_vert_gnl, par = p_R0,
                      own_down = own_down, own_up = own_up,
                      alpha= alpha,
-                     delta = delta, c_R = c_R_vec,
-                     p_W = p_W, c_W = c_W_vec,
+                     delta = delta, cost_r = cost_r,
+                     p_W = p_W, cost_w = cost_w,
                      a_jk=a_jk, B=B, mu=mu, sumFOC = TRUE,
                      control = list(trace=FALSE),
                      quiet = TRUE)

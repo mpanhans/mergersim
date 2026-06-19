@@ -36,7 +36,7 @@ bargain_calibrate <- function(param,own,price,shares,cost,weight,
   delta <- param[2:(1+J)]
 
   x0 <- price
-  out <- multiroot(f = bargain_foc, start = x0, own = own,
+  out <- rootSolve::multiroot(f = bargain_foc, start = x0, own = own,
                    alpha= alpha, delta = delta, cost = cost,
                    lambda = lambda, includeMUI = includeMUI)
   price_m <- out$root

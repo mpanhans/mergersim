@@ -116,7 +116,7 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
 
   delta0 <- log(shares) - log(1-sum(shares)) - alpha*price  ## assuming alpha<0.
 
-  find_d <- multiroot(f = match_share, start = delta0,
+  find_d <- rootSolve::multiroot(f = match_share, start = delta0,
                       price=price,alpha=alpha,nest_allocation=a_jk,mu=mu,
                       shares_obs = shares)
 
@@ -200,7 +200,7 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
 
   }
   if (optimizer == "multiroot") {
-    out1 <- multiroot(f = bertrand_foc, start = x0,
+    out1 <- rootSolve::multiroot(f = bertrand_foc, start = x0,
                       own = own, alpha= alpha,
                       delta = delta, cost = cost_cal,
                       nest_allocation = a_jk, mu = mu)
@@ -377,7 +377,7 @@ bertrand_calibrate_mu <- function(param,own,alpha,price,shares,cost,
 
   delta0 <- log(shares) - log(1-sum(shares)) - alpha*price  ## assuming alpha<0.
 
-  find_d <- multiroot(f = match_share, start = delta0,
+  find_d <- rootSolve::multiroot(f = match_share, start = delta0,
                       price=price,alpha=alpha,nest_allocation=a_jk,mu=mu,
                       shares_obs = shares)
 
@@ -423,7 +423,7 @@ bertrand_calibrate_mu <- function(param,own,alpha,price,shares,cost,
     p_model <- out1$par
   }
   if (optimizer == "multiroot") {
-    out1 <- multiroot(f = bertrand_foc, start = x0,
+    out1 <- rootSolve::multiroot(f = bertrand_foc, start = x0,
                       own = own, alpha= alpha,
                       delta = delta, cost = cost_cal,
                       nest_allocation = a_jk, mu = mu)

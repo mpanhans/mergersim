@@ -144,7 +144,7 @@ bertrand_vert_calibrate_v2 <- function(param,own_down,price,shares,cost,p_W,weig
   delta <- param[2:(1+J)]
 
   x0 <- price
-  out1 <- multiroot(f = bertrand_foc_novert ,start = x0,
+  out1 <- rootSolve::multiroot(f = bertrand_foc_novert ,start = x0,
                     own_down = own_down, alpha= alpha,
                     delta = delta, cost = cost, price_w = p_W)
 

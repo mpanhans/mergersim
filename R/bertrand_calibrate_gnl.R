@@ -537,7 +537,7 @@ bertrand_calibrate_alpha <- function(param,own,price,shares,cost,
   }
 
 
-  out_val <- stats::optim(f = Bert_foc_gnl_calibrate_mu, par = mu_start,
+  out_val <- stats::optim(f = bertrand_calibrate_mu, par = mu_start,
                    alpha = alpha,
                    own = own, price = price,
                    shares = shares, cost  = cost,

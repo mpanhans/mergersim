@@ -163,7 +163,7 @@ bargain_vert_seq_calibrate <- function(c_w_val,price_w,own_down,
   price_w2 <- p_W0
   price_r2 <- p_R0
 
-  shares2 <- (exp(delta1 + alpha1*price_r2))/(1+sum(exp(delta1 + alpha1*price_r2)))
+  shares2 <- (exp(delta + alpha*price_r2))/(1+sum(exp(delta + alpha*price_r2)))
 
   print(sum((price_w2 - price_w)^2))
 

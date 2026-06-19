@@ -48,6 +48,7 @@ bargain_vert_seq_calibrate <- function(c_w_val,price_w,own_down,
                                        showAll = FALSE,
                                        symmetricCosts = FALSE){
 
+  J <- length(price_w)
 
   if (symmetricCosts == FALSE) {
 

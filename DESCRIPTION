@@ -17,6 +17,7 @@ Imports:
     rootSolve,
     stats
 Suggests: 
+    antitrust,
     knitr,
     rmarkdown
 VignetteBuilder: knitr

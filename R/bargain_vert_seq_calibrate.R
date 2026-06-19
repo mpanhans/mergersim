@@ -87,7 +87,7 @@ bargain_vert_seq_calibrate <- function(c_w_val,price_w,own_down,
         #print(p_W0)
 
         # recover price_r at these price_w and update r_R0
-        outtest_r <- BBoptim(f = bertrand_foc_vert, par = p_R0,
+        outtest_r <- BB:BBoptim(f = bertrand_foc_vert, par = p_R0,
                              own_down = own_down, own_up = own_up,
                              alpha= alpha,
                              delta = delta, cost_r = cost_r,
@@ -138,7 +138,7 @@ bargain_vert_seq_calibrate <- function(c_w_val,price_w,own_down,
 
 
         # recover price_r at these price_w and update r_R0
-        outtest_r <- BBoptim(f = bertrand_foc_vert, par = p_R0,
+        outtest_r <- BB:BBoptim(f = bertrand_foc_vert, par = p_R0,
                              own_down = own_down, own_up = own_up,
                              alpha= alpha,
                              delta = delta, cost_r = cost_r,

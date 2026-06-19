@@ -34,7 +34,7 @@
 bargain_vert_sim_calibrate <- function(lambda,price_w,own_down,own_up,
                                        alpha,delta,cost_w,cost_r,price_r){
 
-  out <- BBoptim(par = as.numeric(price_w), fn = bargain_foc_novert_sim,
+  out <- BB::BBoptim(par = as.numeric(price_w), fn = bargain_foc_novert_sim,
                  own_down = own_down,
                  own_up = own_up, alpha= alpha, delta = delta,
                  cost_w = cost_w, cost_r = cost_r, lambda = lambda,

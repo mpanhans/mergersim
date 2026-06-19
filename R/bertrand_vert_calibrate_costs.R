@@ -37,7 +37,7 @@ bertrand_vert_calibrate_costs <- function(param,own_down,price,shares,alpha,
   delta_j <- log(shares) - log(s_0) - alpha*price
 
   x0 <- price
-  out1 <- BBoptim(f = bertrand_foc_novert, par = x0,
+  out1 <- BB::BBoptim(f = bertrand_foc_novert, par = x0,
                   own_down = own_down, alpha= alpha,
                   delta = delta_j, cost = cost,
                   price_w = price_w, sumFOC = TRUE)

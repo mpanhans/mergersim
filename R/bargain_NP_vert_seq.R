@@ -70,7 +70,7 @@ bargain_NP_vert_seq <- function(w_start,product_max,price_w,own_down,own_up,alph
 
   # Given the inputs, calculate optimal retail prices
   # vertical
-  outtest <- BBoptim(f = bertrand_foc_vert, par = p_R0,
+  outtest <- BB::BBoptim(f = bertrand_foc_vert, par = p_R0,
                      own_down = own_down, own_up = own_up,
                      alpha= alpha,
                      delta = delta, cost_r = cost_r,
@@ -91,7 +91,7 @@ bargain_NP_vert_seq <- function(w_start,product_max,price_w,own_down,own_up,alph
     delta_tilde <- delta
     delta_tilde[j] <- -Inf
 
-    outtest_tilde <- BBoptim(f = bertrand_foc_vert, par = p_R0,
+    outtest_tilde <- BB::BBoptim(f = bertrand_foc_vert, par = p_R0,
                              own_down = own_down, own_up = own_up,
                              alpha= alpha,
                              delta = delta_tilde, cost_r = cost_r,
@@ -246,7 +246,7 @@ bargain_NP_vert_seq_gnl <- function(w_start,product_max,price_w,own_down,own_up,
 
   # Given the inputs, calculate optimal retail prices
   # vertical
-  outtest <- BBoptim(f = bertrand_foc_vert_gnl, par = p_R0,
+  outtest <- BB::BBoptim(f = bertrand_foc_vert_gnl, par = p_R0,
                      own_down = own_down, own_up = own_up,
                      alpha= alpha,
                      delta = delta, cost_r = c_R_vec,
@@ -268,7 +268,7 @@ bargain_NP_vert_seq_gnl <- function(w_start,product_max,price_w,own_down,own_up,
     delta_tilde <- delta
     delta_tilde[j] <- -Inf
 
-    outtest_tilde <- BBoptim(f = bertrand_foc_vert, par = p_R0,
+    outtest_tilde <- BB::BBoptim(f = bertrand_foc_vert, par = p_R0,
                              own_down = own_down, own_up = own_up,
                              alpha= alpha,
                              delta = delta_tilde, cost_r = cost_r,
@@ -375,7 +375,7 @@ bargain_NP_vert_seq2 <- function(w_start,product_max,p_W,own_down,own_up,alpha,d
 
   # Given the inputs, calculate optimal retail prices
   # vertical
-  outtest <- BBoptim(f = bertrand_foc_vert, par = p_R0,
+  outtest <- BB::BBoptim(f = bertrand_foc_vert, par = p_R0,
                      own_down = own_down, own_up = own_up,
                      alpha= alpha,
                      delta = delta, c_R = c_R,
@@ -482,7 +482,7 @@ bargain_NP_vert_seq2_gnl <- function(w_start,product_max,p_W,own_down,own_up,alp
 
   # Given the inputs, calculate optimal retail prices
   # vertical
-  outtest <- BBoptim(f = bertrand_foc_vert_gnl, par = p_R0,
+  outtest <- BB::BBoptim(f = bertrand_foc_vert_gnl, par = p_R0,
                      own_down = own_down, own_up = own_up,
                      alpha= alpha,
                      delta = delta, c_R = c_R_vec,

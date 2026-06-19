@@ -42,7 +42,7 @@ bertrand_calibrate <- function(param,own,price,shares,cost,weight,
   delta <- log(shares) - log(1-sum(shares)) - alpha*price
 
   x0 <- price
-  out1 <- BBoptim(f = bertrand_foc, par = x0,
+  out1 <- BB::BBoptim(f = bertrand_foc, par = x0,
                   own = own, alpha = alpha,
                   delta = delta, cost = cost,
                   sumFOC = TRUE)

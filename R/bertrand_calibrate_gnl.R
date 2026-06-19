@@ -166,7 +166,7 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
   }
 
   if (optimizer_c == "BBoptim") {
-    out_cost <- BBoptim(fn = bertrand_foc_c, par = x06,
+    out_cost <- BB::BBoptim(fn = bertrand_foc_c, par = x06,
                       price = price, own = own, alpha = alpha,
                       delta = delta,
                       nest_allocation=a_jk, mu=mu, sumFOC = TRUE,
@@ -186,7 +186,7 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
 
   ## BBoptim or multiroot. If there are missing costs, use BBoptim
   if (optimizer == "BBoptim") {
-    out1 <- BBoptim(f = bertrand_foc, par = x0,
+    out1 <- BB::BBoptim(f = bertrand_foc, par = x0,
                     own = own, alpha= alpha,
                     delta = delta, cost = cost_cal,
                     nest_allocation = a_jk, mu = mu,
@@ -414,7 +414,7 @@ bertrand_calibrate_mu <- function(param,own,alpha,price,shares,cost,
 
   ## BBoptim or multiroot. If there are missing costs, use BBoptim
   if (optimizer == "BBoptim") {
-    out1 <- BBoptim(f = bertrand_foc, par = x0,
+    out1 <- BB::BBoptim(f = bertrand_foc, par = x0,
                     own = own, alpha= alpha,
                     delta = delta, cost = cost_cal,
                     nest_allocation = a_jk, mu = mu,

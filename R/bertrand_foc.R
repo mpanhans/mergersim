@@ -61,7 +61,7 @@ bertrand_foc <- function(price, own, alpha, delta, cost,
   shares <- share_calc(price = price, alpha = alpha, delta = delta,
                        nest_allocation = a_jk, mu = mu)
   m <- price - cost
-  dd <- jacobian(share_calc, x = price, delta = delta, alpha = alpha,
+  dd <- numDeriv::jacobian(share_calc, x = price, delta = delta, alpha = alpha,
                  nest_allocation=a_jk, mu=mu)
   omega <- (own_R * t(dd))
 
@@ -119,7 +119,7 @@ bertrand_foc_c <- function(cost, price, own, alpha, delta,
   shares <- share_calc(price = price, alpha = alpha, delta = delta,
                        nest_allocation = a_jk, mu = mu)
   m <- price - cost
-  dd <- jacobian(share_calc, x = price, delta = delta, alpha = alpha,
+  dd <- numDeriv::jacobian(share_calc, x = price, delta = delta, alpha = alpha,
                  nest_allocation=a_jk, mu=mu)
   omega <- (own_R * t(dd))
 

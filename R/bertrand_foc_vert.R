@@ -156,7 +156,7 @@ bertrand_foc_vert_gnl <- function(price_r,own_down,own_up,alpha,delta,cost_r,pri
   shares <- share_calc(price = price_r, alpha = alpha, delta = delta,
                        nest_allocation = a_jk, mu = mu)
   m <- (1-VI_D) * (price_r - price_w - cost_r) + (VI_D) * (price_r - cost_w - cost_r) #EDM Effect
-  dd <- jacobian(share_calc, x = price_r, delta = delta, alpha = alpha,
+  dd <- numDeriv::jacobian(share_calc, x = price_r, delta = delta, alpha = alpha,
                  nest_allocation=a_jk,mu=mu)
   omega <- (own_R * t(dd))
 

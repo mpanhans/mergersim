@@ -99,7 +99,7 @@ bertrand_vert_calibrate_gnl <- function(cost, price_r,own_down,alpha,delta,price
   shares <- share_calc(price=price_r,delta = delta, alpha = alpha,
                        nest_allocation=a_jk,mu=mu)
   m <- price_r - cost - price_w
-  dd <- jacobian(share_calc, x = price_r, delta = delta, alpha = alpha,
+  dd <- numDeriv::jacobian(share_calc, x = price_r, delta = delta, alpha = alpha,
                  nest_allocation=a_jk,mu=mu)
   omega <- (own_R * t(dd))
 

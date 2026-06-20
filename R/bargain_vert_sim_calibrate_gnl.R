@@ -12,6 +12,13 @@
 #' @param delta Mean values
 #' @param cost_r Marginal costs for downstream firm for each product
 #' @param price_r Retail prices
+#' @param nest_allocation For generalized nested logit demand, a J-by-K matrix
+#' where each element (j,k) designates the membership of good j in nest k. Rows
+#' should sum to 1.
+#' @param mu Nesting parameters for each nest
+#' @param sumFOC logical; whether to return the sum of squares of
+#' the first-order conditions. Defaults to FALSE, in which case it returns each
+#' product first-order condition as a vector.
 #'
 #' @returns The value of objective function
 #'

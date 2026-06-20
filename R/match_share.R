@@ -6,6 +6,7 @@
 #' @param price Price
 #' @param alpha Price coefficient
 #' @param delta Mean values
+#' @param shares_obs Observed market shares
 #' @param nest_allocation For generalized nested logit demand, a J-by-K matrix
 #' where each element (j,k) designates the membership of good j in nest k. Rows
 #' should sum to 1.

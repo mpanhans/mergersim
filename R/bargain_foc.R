@@ -6,7 +6,10 @@
 #' @param delta Mean values
 #' @param cost Marginal costs for each product
 #' @param lambda Bargaining power of the buyer
-#' @param includeMUI logical; TO BE ADDED
+#' @param includeMUI logical; whether to include marginal utility of income
+#' in buyer's payoff, thereby translating dollars to utility. Default is True,
+#' interpreted as buyer maximizing utility. Setting equal to False would have
+#' interpretation that buyer maximizes profts.
 #'
 #' @returns The first-order conditions
 #'

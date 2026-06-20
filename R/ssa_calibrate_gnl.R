@@ -10,8 +10,6 @@
 #' @param nest_allocation For generalized nested logit demand, a J-by-K matrix
 #' where each element (j,k) designates the membership of good j in nest k. Rows
 #' should sum to 1.
-#' @param div_matrix A matrix of observed diversions from product in row j to
-#' product in column k.
 #' @param mu_constraint_matrix is a (K-by-K') matrix indicating which nesting
 #' parameters are constrained to be equal to each other, where K is the
 #' number of nests and K' is the number of freely varying nesting
@@ -19,11 +17,6 @@
 #' is a vector of length K of the nesting parameter value for each nest,
 #' and mu_prime is a vector of length K' of parameters to be calculated.
 #' It must be the case that K is greater than K'.
-#' @param div_calc_marginal is a logical if function should match to marginal
-#' diversions (if TRUE) or second choice diversions (if FALSE). Default
-#' to TRUE.
-#' @param returnOutcomes logical; should equilibrium objects be returned (mean
-#' value parameter, prices, shares, costs) as a list.
 #'
 #' @returns Difference between model predicted and observed values of
 #' prices, shares, and diversions.

@@ -2,6 +2,7 @@
 #'
 #' @param param Price coefficient alpha parameter to calibrate
 #' @param price Price
+#' @param shares Observed market shares
 #' @param own Ownership matrix
 #' @param cost Marginal costs for each product
 #' @param weight Weighting matrix

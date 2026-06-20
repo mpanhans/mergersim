@@ -10,9 +10,9 @@
 #' where each element (j,k) designates the membership of good j in nest k. Rows
 #' should sum to 1.
 #' @param mu Nesting parameters for each nest
-#' @param returnLogsum logical; whether to return the denominator of the choice
-#' probabilities (also known as the log-sum term). Defaults to FALSE, in which
-#' case the function returns a vector with each product's choice probability.
+#' @param marginal logical; if True, diversions are calculated as diversions from
+#' a small price increase. If False, diversions are calculated as second choice
+#' diversions.
 #' @param outsideOption logical; whether to include an outside option in choice
 #' set. Default is TRUE.
 #'
@@ -34,7 +34,8 @@
 #### Add check for whether rows of nest_allocation sum to 1.
 
 diversion_calc <- function(price,alpha,delta,nest_allocation=NA,mu=NA,
-                                           marginal = FALSE, outsideOption = TRUE){
+                                           marginal = FALSE,
+                           outsideOption = TRUE){
 
   # Define GNL objects
   a_jk <- nest_allocation

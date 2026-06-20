@@ -3,7 +3,7 @@
 #' @param param Vector of demand parameters (alpha,mu)
 #' @param price Observed prices
 #' @param own Ownership matrix
-#' @param share Observed market shares
+#' @param shares Observed market shares
 #' @param cost Marginal costs for each product
 #' @param weight Vector of length four with weights given to prices, shares,
 #' diversions, and costs, respectively. Default is c(1,1,1,1).
@@ -26,6 +26,12 @@
 #' equilibrium prices, either BBoptim or multiroot
 #' @param optimizer_c Which optimization routine should be used to calibrate
 #' costs, either BBoptim or optim
+#' @param maxitval Max iterations during price optimization from foc
+#' @param maxitval_c Max iterations during cost optimization from foc
+#' @param fast_version logical; if True, uses only first-order conditions for
+#' products that have non-missing costs. If False, uses the model to predict costs
+#' for all products, and then uses all first-order conditions, which takes longer
+#' to calibrate. Default is False.
 #' @param returnOutcomes logical; should equilibrium objects be returned (mean
 #' value parameter, prices, shares, costs) as a list.
 #'

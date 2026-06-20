@@ -109,6 +109,10 @@ bertrand_foc_vert <- function(price_r,own_down,own_up,alpha,delta,
 #' @param price_w Upstream or wholesale prices, treated as costs by downstream
 #' firms
 #' @param cost_w Marginal costs for upstream firm for each product
+#' @param nest_allocation For generalized nested logit demand, a J-by-K matrix
+#' where each element (j,k) designates the membership of good j in nest k. Rows
+#' should sum to 1.
+#' @param mu Nesting parameters for each nest
 #' @param sumFOC logical; whether to return the sum of squares of
 #' the first-order conditions. Defaults to FALSE, in which case it returns each
 #' product first-order condition as a vector.
@@ -122,12 +126,18 @@ bertrand_foc_vert <- function(price_r,own_down,own_up,alpha,delta,
 #' @export
 
 
-bertrand_foc_vert_gnl <- function(price_r,own_down,own_up,alpha,delta,cost_r,price_w,cost_w,
-                                  a_jk=NA, B=NA, mu=NA, sumFOC = FALSE){
+bertrand_foc_vert_gnl <- function(price_r,own_down,own_up,alpha,delta,
+                                  cost_r,price_w,cost_w,
+                                  nest_allocation=NA, mu=NA, sumFOC = FALSE){
+
+  J <- length(price_r)
+
+  # If GNL, define GNL objects
+  a_jk <- nest_allocation
+  B <- 1*(a_jk > 0)
 
   # If no GNL parameters, treat as standard logit. One nest. mu=1.
-  J <- length(price_r)
-  if (any(is.na(B))) {
+  if (any(is.na(nest_allocation))) {
     K <- 1
     B <- matrix(1, ncol = 1, nrow = J)
     a_jk <- B

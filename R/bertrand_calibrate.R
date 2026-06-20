@@ -63,7 +63,7 @@ bertrand_calibrate <- function(param,own,price,shares,cost,weight,
     meancost <- mean(cost, na.rm = TRUE)
     x00 <- ifelse(!is.na(cost), cost, meancost)
 
-    out_cost <- optim(f = bertrand_foc_c, par = x00,
+    out_cost <- stats::optim(f = bertrand_foc_c, par = x00,
                       price = price, own = own, alpha = alpha,
                       delta = delta, sumFOC = TRUE,
                       control = list(maxit = 1500) )

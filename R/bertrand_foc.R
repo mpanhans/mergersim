@@ -22,7 +22,6 @@
 #' TO BE ADDED.
 #'
 #' @export bertrand_foc
-#' @export bertrand_foc_c
 
 
 
@@ -86,6 +85,9 @@ bertrand_foc <- function(price, own, alpha, delta, cost,
 }
 
 
+
+#' @rdname bertrand_foc
+#' @export bertrand_foc_c
 
 ##################################################################
 # Second version of function that puts cost as first parameter

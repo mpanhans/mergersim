@@ -16,19 +16,25 @@ bargain_calibrate(
 )
 }
 \arguments{
+\item{param}{Price coefficient alpha and mean values delta, parameters to
+calibrate}
+
 \item{own}{Ownership matrix}
 
 \item{price}{Price}
 
+\item{shares}{Observed market shares}
+
 \item{cost}{Marginal costs for each product}
+
+\item{weight}{Weighting matrix}
 
 \item{lambda}{Bargaining power of the buyer}
 
-\item{includeMUI}{logical; TO BE ADDED}
-
-\item{alpha}{Price coefficient}
-
-\item{delta}{Mean values}
+\item{includeMUI}{logical; whether to include marginal utility of income
+in buyer's payoff, thereby translating dollars to utility. Default is True,
+interpreted as buyer maximizing utility. Setting equal to False would have
+interpretation that buyer maximizes profts.}
 }
 \value{
 The first-order conditions

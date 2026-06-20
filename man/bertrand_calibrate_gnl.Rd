@@ -30,6 +30,8 @@ bertrand_calibrate_gnl(
 
 \item{price}{Observed prices}
 
+\item{shares}{Observed market shares}
+
 \item{cost}{Marginal costs for each product}
 
 \item{weight}{Vector of length four with weights given to prices, shares,
@@ -63,7 +65,14 @@ costs, either BBoptim or optim}
 \item{returnOutcomes}{logical; should equilibrium objects be returned (mean
 value parameter, prices, shares, costs) as a list.}
 
-\item{share}{Observed market shares}
+\item{maxitval}{Max iterations during price optimization from foc}
+
+\item{maxitval_c}{Max iterations during cost optimization from foc}
+
+\item{fast_version}{logical; if True, uses only first-order conditions for
+products that have non-missing costs. If False, uses the model to predict costs
+for all products, and then uses all first-order conditions, which takes longer
+to calibrate. Default is False.}
 }
 \value{
 Difference between model predicted and observed values of

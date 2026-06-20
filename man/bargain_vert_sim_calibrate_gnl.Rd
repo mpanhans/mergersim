@@ -15,8 +15,7 @@ bargain_vert_sim_calibrate_gnl(
   cost_r,
   price_r,
   price_w,
-  a_jk = NA,
-  B = NA,
+  nest_allocation = NA,
   mu = NA,
   sumFOC = FALSE
 )
@@ -43,6 +42,16 @@ supplied}
 \item{price_r}{Retail prices}
 
 \item{price_w}{Upstream or wholesale prices}
+
+\item{nest_allocation}{For generalized nested logit demand, a J-by-K matrix
+where each element (j,k) designates the membership of good j in nest k. Rows
+should sum to 1.}
+
+\item{mu}{Nesting parameters for each nest}
+
+\item{sumFOC}{logical; whether to return the sum of squares of
+the first-order conditions. Defaults to FALSE, in which case it returns each
+product first-order condition as a vector.}
 }
 \value{
 The value of objective function

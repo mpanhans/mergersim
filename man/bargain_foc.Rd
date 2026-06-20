@@ -19,7 +19,10 @@ bargain_foc(price, own, alpha, delta, cost, lambda, includeMUI = TRUE)
 
 \item{lambda}{Bargaining power of the buyer}
 
-\item{includeMUI}{logical; TO BE ADDED}
+\item{includeMUI}{logical; whether to include marginal utility of income
+in buyer's payoff, thereby translating dollars to utility. Default is True,
+interpreted as buyer maximizing utility. Setting equal to False would have
+interpretation that buyer maximizes profts.}
 }
 \value{
 The first-order conditions

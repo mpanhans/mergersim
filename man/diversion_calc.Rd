@@ -10,7 +10,8 @@ diversion_calc(
   delta,
   nest_allocation = NA,
   mu = NA,
-  marginal = FALSE
+  marginal = FALSE,
+  outsideOption = TRUE
 )
 }
 \arguments{
@@ -26,9 +27,12 @@ should sum to 1.}
 
 \item{mu}{Nesting parameters for each nest}
 
-\item{returnLogsum}{logical; whether to return the denominator of the choice
-probabilities (also known as the log-sum term). Defaults to FALSE, in which
-case the function returns a vector with each product's choice probability.}
+\item{marginal}{logical; if True, diversions are calculated as diversions from
+a small price increase. If False, diversions are calculated as second choice
+diversions.}
+
+\item{outsideOption}{logical; whether to include an outside option in choice
+set. Default is TRUE.}
 }
 \value{
 Returns vector of choice probabilities for each good

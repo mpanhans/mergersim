@@ -18,6 +18,8 @@ where each element (j,k) designates the membership of good j in nest k. Rows
 should sum to 1.}
 
 \item{mu}{Nesting parameters for each nest}
+
+\item{shares_obs}{Observed market shares}
 }
 \value{
 Returns vector of difference between predicted shares and observed

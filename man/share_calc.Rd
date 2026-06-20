@@ -10,7 +10,8 @@ share_calc(
   alpha,
   nest_allocation = NA,
   mu = NA,
-  returnLogsum = FALSE
+  returnLogsum = FALSE,
+  outsideOption = TRUE
 )
 }
 \arguments{
@@ -29,6 +30,9 @@ should sum to 1.}
 \item{returnLogsum}{logical; whether to return the denominator of the choice
 probabilities (also known as the log-sum term). Defaults to FALSE, in which
 case the function returns a vector with each product's choice probability.}
+
+\item{outsideOption}{logical; whether to include an outside option in choice
+set. Default is TRUE.}
 }
 \value{
 Returns vector of choice probabilities for each good

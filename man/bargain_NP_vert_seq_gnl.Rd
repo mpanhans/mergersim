@@ -17,8 +17,7 @@ bargain_NP_vert_seq_gnl(
   lambda,
   p_R0,
   sigma,
-  a_jk,
-  B,
+  nest_allocation,
   mu,
   showAll = FALSE
 )
@@ -49,10 +48,13 @@ bargain_NP_vert_seq_gnl(
 \item{sigma}{Contract type; value between 0 and 1 where 0 is linear price,
 1 is two-part tariff}
 
-\item{showAll}{logical; if true, returns gains for trade for every product}
+\item{nest_allocation}{For generalized nested logit demand, a J-by-K matrix
+where each element (j,k) designates the membership of good j in nest k. Rows
+should sum to 1.}
 
-\item{maxJointProfits}{Experimental option; if true, will maximize joint
-profits rather than gains from trade}
+\item{mu}{Nesting parameters for each nest}
+
+\item{showAll}{logical; if true, returns gains for trade for every product}
 }
 \value{
 The first-order conditions

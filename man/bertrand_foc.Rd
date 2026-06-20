@@ -2,6 +2,7 @@
 % Please edit documentation in R/bertrand_foc.R
 \name{bertrand_foc}
 \alias{bertrand_foc}
+\alias{bertrand_foc_c}
 \title{Bertrand first-order conditions}
 \usage{
 bertrand_foc(
@@ -10,6 +11,17 @@ bertrand_foc(
   alpha,
   delta,
   cost,
+  nest_allocation = NA,
+  mu = NA,
+  sumFOC = FALSE
+)
+
+bertrand_foc_c(
+  cost,
+  price,
+  own,
+  alpha,
+  delta,
   nest_allocation = NA,
   mu = NA,
   sumFOC = FALSE

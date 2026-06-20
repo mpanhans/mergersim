@@ -21,6 +21,8 @@ bertrand_calibrate(
 
 \item{price}{Price}
 
+\item{shares}{Observed market shares}
+
 \item{cost}{Marginal costs for each product}
 
 \item{weight}{Weighting matrix}

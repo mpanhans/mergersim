@@ -17,7 +17,15 @@
 #' price-setting model of competition
 #'
 #' @examples
-#' TO BE ADDED.
+#' alpha  <- -0.9
+#' delta <- c(.81,.93,.82)
+#' c_j <- c(.05,.31,.30)
+#' own_pre = diag(3)
+#' p0 <- c_j*1.1
+#'
+#' bertrand_foc(price = p0,
+#' own = own_pre, alpha= alpha,
+#' delta = delta, cost = c_j)
 #'
 #' @export
 

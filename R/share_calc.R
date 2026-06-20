@@ -22,7 +22,10 @@
 #' parameters for a logit or generalized nested logit demand system
 #'
 #' @examples
-#' TO BE ADDED.
+#' alpha  <- -0.9
+#' delta <- c(.81,.93,.82)
+#' p0 <- c_j*1.1
+#' share_calc(price=p0,delta=delta,alpha=alpha)
 #'
 #' @export
 

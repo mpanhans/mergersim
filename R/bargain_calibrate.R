@@ -19,7 +19,17 @@
 #' price-setting model of competition
 #'
 #' @examples
-#' TO BE ADDED.
+#' alpha  <- -0.9
+#' delta <- c(.81,.93,.82)
+#' c_j <- c(.05,.31,.30)
+#' own_pre = diag(3)
+#' p0 <- c_j*1.1
+#' share1 <- (exp(delta + alpha*p0))/(1+sum(exp(delta + alpha*p0)))
+#' wt_matrix <- diag(c(1,1,1,1000,1000,1000))
+#'
+#' bargain_calibrate(param = c(alpha,delta),own = own_pre,price = p0,
+#' shares = share1,cost = c_j, weight = wt_matrix,
+#' lambda = 0.5)
 #'
 #' @export
 

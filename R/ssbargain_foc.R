@@ -14,7 +14,14 @@
 #' model that nests the second score auction.
 #'
 #' @examples
-#' TO BE ADDED.
+#' alpha  <- -0.9
+#' delta <- c(.81,.93,.82)
+#' own_pre = diag(3)
+#' p0 <- c(.05, .34, .33)
+#' c_j <- c(.05,.31,.30)
+#'
+#' ssbargain_foc(price = p0,own = own_pre,alpha=alpha,delta=delta,cost=c_j,
+#'               lambda = 0.5)
 #'
 #' @export
 

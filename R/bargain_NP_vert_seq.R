@@ -344,7 +344,7 @@ bargain_NP_vert_seq_gnl <- function(w_start,product_max,price_w,own_down,own_up,
 ## Unused as that did not seem to be an appealing assumption for sequential model.
 
 bargain_NP_vert_seq2 <- function(w_start,product_max,p_W,own_down,own_up,alpha,delta,
-                                 c_W,c_R,lambda,p_R0,sigma,showAll = FALSE){
+                                 cost_w,cost_r,lambda,p_R0,sigma,showAll = FALSE){
 
   p_W[product_max] <- w_start
   J <- length(p_W)
@@ -378,8 +378,8 @@ bargain_NP_vert_seq2 <- function(w_start,product_max,p_W,own_down,own_up,alpha,d
   outtest <- BB::BBoptim(f = bertrand_foc_vert, par = p_R0,
                      own_down = own_down, own_up = own_up,
                      alpha= alpha,
-                     delta = delta, c_R = c_R,
-                     p_W = p_W, c_W = c_W, sumFOC = TRUE,
+                     delta = delta, cost_r = cost_r,
+                     p_W = p_W, cost_w = cost_w, sumFOC = TRUE,
                      control = list(trace=FALSE),
                      quiet = TRUE)
 
@@ -399,8 +399,8 @@ bargain_NP_vert_seq2 <- function(w_start,product_max,p_W,own_down,own_up,alpha,d
   shares_tilde <- matrix(unlist(shares_tilde), ncol = J, byrow = FALSE)
 
   # define margins, depends on whether vertically integrated
-  margin_up <-   (1-VI_D)*(p_W - c_W)       + VI_D*(p_R - c_W - c_R)
-  margin_down <- (1-VI_D)*(p_R - p_W - c_R) + VI_D*(p_R - c_W - c_R)
+  margin_up <-   (1-VI_D)*(p_W - cost_w)       + VI_D*(p_R - cost_w - cost_r)
+  margin_down <- (1-VI_D)*(p_R - p_W - cost_r) + VI_D*(p_R - cost_w - cost_r)
 
   # specify payoffs and disagreement payoffs
   pi_w <- own_W %*% (margin_up*shares) + own_W_down %*% (margin_down*shares)
@@ -508,8 +508,8 @@ bargain_NP_vert_seq2_gnl <- function(w_start,product_max,p_W,own_down,own_up,alp
 
 
   # define margins, depends on whether vertically integrated
-  margin_up <-   (1-VI_D)*(p_W - c_W)       + VI_D*(p_R - c_W - c_R)
-  margin_down <- (1-VI_D)*(p_R - p_W - c_R) + VI_D*(p_R - c_W - c_R)
+  margin_up <-   (1-VI_D)*(p_W - cost_w)       + VI_D*(p_R - cost_w - cost_r)
+  margin_down <- (1-VI_D)*(p_R - p_W - cost_r) + VI_D*(p_R - cost_w - cost_r)
 
   # specify payoffs and disagreement payoffs
   pi_w <- own_W %*% (margin_up*shares) + own_W_down %*% (margin_down*shares)

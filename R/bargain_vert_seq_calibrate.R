@@ -22,7 +22,14 @@
 #' which is the upstream market of a vertical supply chain. Assumes logit demand.
 #'
 #' @examples
-#' TO BE ADDED.
+#' bargain_vert_seq_calibrate(c_w_val = rep(.2, times = 6),
+#' price_w = c(1.6, 1.6, 1.6, 1.6, 1.6, 1.6),
+#' own_down = paste0("R",rep(c(1,2,3),each=2)),
+#' own_up = paste0("W",rep(c(1,2),3)),
+#' alpha = -0.9, delta = c(0.2, 0.3, 0.9, 1.0, 0.8, 0.9),
+#' lambda = 0.5, cost_r = rep(.1, times = 6),
+#' price_r = c(2.9, 2.9, 3.0, 3.0, 3.0, 3.0),
+#' sigma = 0, setTol = 0.9)
 #'
 #' @export
 
@@ -158,15 +165,15 @@ bargain_vert_seq_calibrate <- function(c_w_val,price_w,own_down,
   # uncomment next two lines just for debugging purposes.
   #print(iter)
   #print(error)
-  print(p_W0)
-  print(p_R0)
+  #print(p_W0)
+  #print(p_R0)
 
   price_w2 <- p_W0
   price_r2 <- p_R0
 
   shares2 <- (exp(delta + alpha*price_r2))/(1+sum(exp(delta + alpha*price_r2)))
 
-  print(sum((price_w2 - price_w)^2))
+  #print(sum((price_w2 - price_w)^2))
 
   if (showAll == TRUE) {
     return(list("price_w" = price_w2,"price_r" = price_r2,"shares" = as.numeric(shares2)) )

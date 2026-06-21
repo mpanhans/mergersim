@@ -23,7 +23,15 @@
 #' model
 #'
 #' @examples
-#' TO BE ADDED.
+#' bargain_NP_vert_seq(w_start = 1.5, product_max = 1,
+#' price_w = c(1.6, 1.6, 1.6, 1.6, 1.6, 1.6),
+#' own_down = paste0("R",rep(c(1,2,3),each=2)),
+#' own_up = paste0("W",rep(c(1,2),3)),
+#' alpha = -0.9, delta = c(0.2, 0.3, 0.9, 1.0, 0.8, 0.9),
+#' cost_w = rep(.2, times = 6),
+#' cost_r = rep(.1, times = 6),
+#' lambda = 0.5, sigma = 0,
+#' p_R0 = c(2.9, 2.9, 3.0, 3.0, 3.0, 3.0))
 #'
 #' @export
 
@@ -197,7 +205,30 @@ bargain_NP_vert_seq <- function(w_start,product_max,price_w,own_down,own_up,alph
 #' model. This version allows for nested logit with overlapping nests.
 #'
 #' @examples
-#' TO BE ADDED.
+#'
+#' own_down <- paste0("R",rep(c(1,2,3),each=2))
+#' own_up <- paste0("W",rep(c(1,2),3))
+#'
+#' B1 <- 1 * matrix( c(own_down == "R1",
+#'                     own_down == "R2",
+#'                     own_down == "R3",
+#'                     own_up == "W1",
+#'                     own_up == "W2"),
+#'                   ncol = 5, nrow = 6)
+#' a1 <- B1 * 0.5
+#' mu1 <- rep(1.0,5)
+#'
+#' bargain_NP_vert_seq_gnl(w_start = 1.5, product_max = 1,
+#'                         price_w = c(1.6, 1.6, 1.6, 1.6, 1.6, 1.6),
+#'                         own_down = own_down,
+#'                         own_up = own_up,
+#'                         alpha = -0.9, delta = c(0.2, 0.3, 0.9, 1.0, 0.8, 0.9),
+#'                         cost_w = rep(.2, times = 6),
+#'                         cost_r = rep(.1, times = 6),
+#'                         lambda = 0.5, sigma = 0,
+#'                         p_R0 = c(2.9, 2.9, 3.0, 3.0, 3.0, 3.0),
+#'                         nest_allocation = a1, mu = mu1)
+#'
 #'
 #' @export
 
@@ -253,7 +284,7 @@ bargain_NP_vert_seq_gnl <- function(w_start,product_max,price_w,own_down,own_up,
                      alpha= alpha,
                      delta = delta, cost_r = cost_r,
                      price_w = price_w, cost_w = cost_w,
-                     a_jk=a_jk, B=B, mu=mu, sumFOC = TRUE,
+                     nest_allocation=a_jk, mu=mu, sumFOC = TRUE,
                      control = list(trace=FALSE),
                      quiet = TRUE)
 

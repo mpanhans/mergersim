@@ -27,7 +27,16 @@
 #' Assumes logit demand.
 #'
 #' @examples
-#' TO BE ADDED.
+#' bargain_vert_sim_calibrate_gnl(param = 0.4, lambda=NA,
+#' cost_w = rep(.2, times = 6),
+#' own_down = paste0("R",rep(c(1,2,3),each=2)),
+#' own_up = paste0("W",rep(c(1,2),3)),
+#' alpha = -0.9,
+#' delta = c(0.2, 0.3, 0.9, 1.0, 0.8, 0.9),
+#' cost_r = rep(.1, times = 6),
+#' price_r = c(2.9, 2.9, 3.0, 3.0, 3.0, 3.0),
+#' price_w = c(1.6, 1.6, 1.6, 1.6, 1.6, 1.6),
+#' nest_allocation=NA, mu=NA, sumFOC = TRUE)
 #'
 #' @export
 

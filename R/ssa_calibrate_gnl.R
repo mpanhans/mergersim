@@ -5,8 +5,7 @@
 #' @param own Ownership matrix
 #' @param shares Observed market shares
 #' @param cost Marginal costs for each product
-#' @param weight Vector of length four with weights given to prices, shares,
-#' diversions, and costs, respectively. Default is c(1,1,1,1).
+#' @param weight Weighting matrix of dimensions J-by-J
 #' @param nest_allocation For generalized nested logit demand, a J-by-K matrix
 #' where each element (j,k) designates the membership of good j in nest k. Rows
 #' should sum to 1.
@@ -21,11 +20,20 @@
 #' @returns Difference between model predicted and observed values of
 #' prices, shares, and diversions.
 #'
-#' @details This function calibrates a second score auction model with generalized nested
-#' logit (GNL) demand
+#' @details This function calibrates a second score auction model with generalized
+#' nested logit (GNL) demand
 #'
 #' @examples
-#' TO BE ADDED.
+#' nest1 <- matrix( c(1, 0, 0, 0, 1, 1), ncol = 2, nrow = 3)
+#'
+#' ssa_calibrate_gnl(param = c(-0.9, 1, 1),
+#' own = diag(3),
+#' price = c(.05, .34, .33),
+#' shares = c( 0.31, 0.27, 0.25),
+#' cost = c(.05,.31,.30),
+#' weight = diag(c(1,1,1)),
+#' nest_allocation = nest1,
+#' mu_constraint_matrix = NA)
 #'
 #' @export
 

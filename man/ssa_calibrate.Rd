@@ -30,6 +30,13 @@ This function calculate the first-order conditions from a second
 score auction model of competition
 }
 \examples{
-TO BE ADDED.
+own_pre = diag(3)
+p0 <- c(.05, .34, .33)
+share1 <- c( 0.31, 0.27, 0.25)
+c_j <- c(.05,.31,.30)
+wt_matrix <- diag(c(1,1,1))
+
+ssa_calibrate(param = -1,own = own_pre,price=p0,share=share1,cost=c_j,
+              weight = wt_matrix)
 
 }

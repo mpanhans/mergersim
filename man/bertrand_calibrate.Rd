@@ -44,6 +44,21 @@ demand. For nested logit or generalized nested logit, see
 bertrand_calibrate_gnl().
 }
 \examples{
-TO BE ADDED.
+alpha  <- -0.9
+delta <- c(.81,.93,.82)
+c_j <- c(.05,.31,.30)
+
+own_pre = diag(3)
+
+p0 <- c_j*1.1
+
+share1 <- (exp(delta + alpha*p0))/(1+sum(exp(delta + alpha*p0)))
+x00 <- c(-1)
+wt_matrix <- diag(c(1,1,1,1000,1000,1000))
+
+bertrand_calibrate( param = x00,
+                    own = own_pre, price = p0,
+                    shares = share1, cost  = c_j,
+                    weight = wt_matrix)
 
 }

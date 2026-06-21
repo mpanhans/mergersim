@@ -63,6 +63,14 @@ This function calculate the Nash Product from a Nash bargaining
 model
 }
 \examples{
-TO BE ADDED.
+bargain_NP_vert_seq(w_start = 1.5, product_max = 1,
+price_w = c(1.6, 1.6, 1.6, 1.6, 1.6, 1.6),
+own_down = paste0("R",rep(c(1,2,3),each=2)),
+own_up = paste0("W",rep(c(1,2),3)),
+alpha = -0.9, delta = c(0.2, 0.3, 0.9, 1.0, 0.8, 0.9),
+cost_w = rep(.2, times = 6),
+cost_r = rep(.1, times = 6),
+lambda = 0.5, sigma = 0,
+p_R0 = c(2.9, 2.9, 3.0, 3.0, 3.0, 3.0))
 
 }

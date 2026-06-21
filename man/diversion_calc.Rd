@@ -46,6 +46,11 @@ This function calculates choice probabilities based on demand
 parameters for a logit or generalized nested logit demand system
 }
 \examples{
-TO BE ADDED.
+alpha  <- -0.9
+delta <- c(.81,.93,.82)
+
+p0 <- c_j*1.1
+
+diversion_calc(price=p0,alpha=alpha,delta=delta)
 
 }

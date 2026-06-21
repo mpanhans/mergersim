@@ -34,6 +34,10 @@ This function calculates the difference between model predicted
 choice probabilities and observed market shares.
 }
 \examples{
-TO BE ADDED.
+alpha  <- -0.9
+delta <- c(.81,.93,.82)
+p0 <- c_j*1.1
+match_share(price=p0, delta=delta, alpha=alpha,
+            shares_obs = c(.2, .2, .2))
 
 }

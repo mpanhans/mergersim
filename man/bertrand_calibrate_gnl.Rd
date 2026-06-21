@@ -86,6 +86,15 @@ This function calibrates a Bertrand model with generalized nested
 logit (GNL) demand
 }
 \examples{
-TO BE ADDED.
+nest1 <- matrix( c(1, 0, 0, 0, 1, 1), ncol = 2, nrow = 3)
+divmat <- matrix( c(0, .4, .4, .4, 0, .4, .4, .4, 0), ncol = 3, nrow = 3)
+
+bertrand_calibrate_gnl(param = c(-0.9, 1, 1),
+                       own = diag(3),
+                       price = c(.05, .34, .33),
+                       shares = c( 0.31, 0.27, 0.25),
+                       cost = c(.05,.31,.30),
+                       weight = c(1,1,1,1),
+                       nest_allocation = nest1, div_matrix = divmat)
 
 }

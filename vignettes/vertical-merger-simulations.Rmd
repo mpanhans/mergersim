@@ -497,7 +497,7 @@ p_W1_post
 
 # Comparison to 'antitrust' package
 
-We can also show that the R package 'antitrust' can be used to recover the same true demand parameters. Note, however, that upstream margins needs to be input in levels (dollars), but downstream margins need to be input as a percent.
+We can also show that the R package 'antitrust' can be used to recover the same true demand parameters.
 
 ```{r}
 shareDown <- as.numeric(shares1)
@@ -509,8 +509,8 @@ priceOutSide <- 0
 
 # Downstream margin as a percent
 marginDown <- (priceDown - c_R_vec - priceUp)/ priceDown
-# Upstream margin in dollars
-marginUp <- (priceUp - c_W_vec)
+# Upstream margin as a percent
+marginUp <- (priceUp - c_W_vec) / priceUp
 
 ## Simulate a vertical merger
 ownerPostUp <- own_up_post

@@ -26,7 +26,7 @@
 ##################################################################
 # Bertrand model first-order conditions
 ##################################################################
-# This version is for a vertical supply chain, and thus accepts wholesale prices
+# This version is for a vertical supply chain, and accepts wholesale prices
 # price_w as an input.
 # This function can handle multiple integrated goods, and missing downstream costs.
 # still need to add missing upstream costs (through omega_up)
@@ -170,7 +170,7 @@ bertrand_foc_vert_gnl <- function(price_r,own_down,own_up,alpha,delta,
                  nest_allocation=a_jk,mu=mu)
   omega <- (own_R * t(dd))
 
-  # if all costs aviailable:
+  # if all costs available:
   foc1 <- omega %*% m + shares
 
   UPP_effect <- (VI_D+VI_U_r) * (dd %*% (VI_U_w*(price_w - cost_w)) )

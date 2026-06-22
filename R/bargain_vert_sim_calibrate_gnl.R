@@ -46,10 +46,8 @@
 # Nash Product
 ##################################################################
 
-
 #### function for calibrating upstream in simultaneous model
-## do I need to end this function name with "gnl"?
-## need to update how GNL parameters are define. nest_allocation and mu only.
+
 
 bargain_vert_sim_calibrate_gnl <- function(param,lambda=NA,cost_w=NA,
                                            own_down,own_up,alpha,delta,
@@ -111,7 +109,7 @@ bargain_vert_sim_calibrate_gnl <- function(param,lambda=NA,cost_w=NA,
 
   shares_tilde <- matrix(unlist(shares_tilde), ncol = J, byrow = FALSE)
 
-  pi_w <- own_W %*% ((price_w - cost_w)*shares)  # this doesn't work if some cost_w missing
+  pi_w <- own_W %*% ((price_w - cost_w)*shares)  # this won't work if some cost_w missing
 
   pi_w_tilde <- vector("numeric",J)
   for (j in (1:J)) {

@@ -28,11 +28,9 @@
 #' @export
 
 
-
 ##################################################################
 # Calculate choice probabilities
 ##################################################################
-#### Add check for whether rows of nest_allocation sum to 1.
 
 diversion_calc <- function(price,alpha,delta,nest_allocation=NA,mu=NA,
                                            marginal = FALSE,

@@ -25,7 +25,6 @@
 ##################################################################
 # Calibrates the downstream Bertrand model of a vertical supply chain. Accounts
 # for price_w, which is treated as a cost by downstream firms.
-#### Eventually integrate this into bertrand_vert_calibrate().
 
 bertrand_vert_calibrate_costs <- function(param,own_down,price,shares,alpha,
                                           delta,price_w){

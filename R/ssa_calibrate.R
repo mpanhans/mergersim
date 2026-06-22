@@ -29,12 +29,6 @@
 ##################################################################
 # Second score auction calibration
 ##################################################################
-# Add warning if alpha > 0. It should be < 0.
-# Would be nice if ownership could be either vector of names OR an
-# ownership matrix.
-# also add checks for dimensions of inputs
-# also add default for weight matrix
-# This needs to be generalized to GNL
 
 ssa_calibrate <- function(param,own,price,share,cost,weight){
   alpha <- param[1]

@@ -37,7 +37,6 @@
 
 ## A bargaining calibration function for simple logit demand and calibrates
 ## lambda. Uses bargain_foc_novert_sim().
-## Not sure if need to export both this and the _gnl version.
 
 bargain_vert_sim_calibrate <- function(lambda,price_w,own_down,own_up,
                                        alpha,delta,cost_w,cost_r,price_r){

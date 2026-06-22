@@ -107,13 +107,13 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
   if (K_prime > K_val) {warning("K' should not be greater than K")}
 
   ## if no matrix provided, but K_prime implied by length of param is 1,
-  ## then we can assume just one nesting parameter
+  ## then assume just one nesting parameter
   if (anyNA(mu_constraint_matrix) & K_prime == 1 ) {
     mu_constraint_matrix <- matrix(1, nrow = K_val, ncol = 1)
   }
 
   ## if no matrix provided, but K_prime implied by length of param is K,
-  ## then we can assume full flexibility intended
+  ## then assume full flexibility intended
   if (anyNA(mu_constraint_matrix) & K_prime == K_val ) {
     mu_constraint_matrix <- diag(K_val)
   }
@@ -129,7 +129,7 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
 
   J <- length(price)
 
-  delta0 <- log(shares) - log(1-sum(shares)) - alpha*price  ## assuming alpha<0.
+  delta0 <- log(shares) - log(1-sum(shares)) - alpha*price
 
   find_d <- rootSolve::multiroot(f = match_share, start = delta0,
                       price=price,alpha=alpha,nest_allocation=a_jk,mu=mu,
@@ -137,10 +137,7 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
 
   delta <- find_d$root
 
-  # sometimes, multiroot fails inside of optimization. Set to delta0.
-  # Eventually need to understand better when multiroot fails.
-
-  #  old version of function had no correction
+  # if multiroot fails inside of optimization. Set to delta0.
     if (anyNA(delta)) {
       delta <- delta0
       warning("Multiroot failed to find mean values that matched shares.")
@@ -151,12 +148,8 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
   #### Cost calibration. Only needed for fast=FALSE version.
   if (fast_version == FALSE) {
 
-  ## NEW: Given observed prices, and current guess of demand parameter values,
+  ## Given observed prices, and current guess of demand parameter values,
   ## back out costs consistent with FOCs.
-  #x06 <- price * 0.5
-  ## Add check that at least one element of the cost vector is non-missing.
-  ## Or, adjust this to allow for starting value when cost vector is completely
-  ## missing.
 
   if (anyNA(cost) == FALSE) {
     x06 <- cost
@@ -231,7 +224,6 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
 
   if (fast_version == FALSE) {
 
-  # Still consider whether matchCost = FALSE should be an available option.
   matchCost <- TRUE
 
   ## objective function with new weight method
@@ -264,7 +256,7 @@ bertrand_calibrate_gnl <- function(param,own,price,shares,cost,
     pdiff <- ((price - p_model)^2) * weight[1]
     sdiff <- ((shares - share_m)^2) * 1000 * weight[2]
     div_diff <- ((as.numeric(div_matrix - diversions_m)^2)*100 * weight[3])
-    # scaling is so that default is somewhat sensible across components of
+    # scaling so that default weight is same magnitude across components of
     # objective function
 
     objfxn <- sum(pdiff) + sum(sdiff) + sum(div_diff, na.rm = TRUE)
@@ -346,9 +338,6 @@ bertrand_calibrate_mu <- function(param,own,alpha,price,shares,cost,
 
   ## this function takes alpha as given. Finds best nesting parameters, mu.
 
-  ## for troubleshooting:
-  #print(param)
-
   # If GNL, define GNL objects
   a_jk <- nest_allocation
   B <- 1*(a_jk > 0)
@@ -390,7 +379,7 @@ bertrand_calibrate_mu <- function(param,own,alpha,price,shares,cost,
 
   J <- length(price)
 
-  delta0 <- log(shares) - log(1-sum(shares)) - alpha*price  ## assuming alpha<0.
+  delta0 <- log(shares) - log(1-sum(shares)) - alpha*price
 
   find_d <- rootSolve::multiroot(f = match_share, start = delta0,
                       price=price,alpha=alpha,nest_allocation=a_jk,mu=mu,
@@ -414,7 +403,7 @@ bertrand_calibrate_mu <- function(param,own,alpha,price,shares,cost,
   x0 <- price
 
 
-  ## NEW: Given observed prices, and current guess of demand parameter values,
+  ## Given observed prices, and current guess of demand parameter values,
   ## back out costs consistent with FOCs.
   x06 <- price * 0.5
 

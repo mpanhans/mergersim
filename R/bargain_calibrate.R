@@ -38,10 +38,6 @@
 ##################################################################
 # Nash bargaining calibration
 ##################################################################
-# Add warning if alpha > 0. It should be < 0.
-# Would be nice if ownership could be either vector of names OR an
-# ownership matrix.
-# also add checks for dimensions of inputs
 
 bargain_calibrate <- function(param,own,price,shares,cost,weight,
                                lambda,includeMUI=TRUE){

@@ -38,10 +38,6 @@
 ##################################################################
 # Bertrand model first-order conditions
 ##################################################################
-# Add warning if alpha > 0. It should be < 0.
-# Would be nice if ownership could be either vector of names OR an
-# ownership matrix.
-# also add checks for dimensions of inputs
 
 bertrand_foc <- function(price, own, alpha, delta, cost,
                          nest_allocation=NA, mu=NA, sumFOC = FALSE){

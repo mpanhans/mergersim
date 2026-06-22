@@ -42,12 +42,6 @@
 ##################################################################
 # Bertrand model calibration
 ##################################################################
-# Add warning if alpha > 0. It should be < 0.
-# Ownership should be accommodated as either vector of names OR an
-# ownership matrix.
-# add checks for dimensions of inputs
-# add default for weight matrix
-
 
 bertrand_calibrate <- function(param,own,price,shares,cost,weight,
                                returnOutcomes = FALSE){

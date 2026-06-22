@@ -73,7 +73,7 @@ share_calc <- function(price,delta,alpha,nest_allocation=NA,mu=NA,
 
   P_j_Bk <- temp2 / matrix(rep(colSums(temp2),J), ncol = K, nrow = J, byrow = TRUE)
   # this should be a JxK matrix with columns that sum to 1, unless empty nest
-  # fix for empty nests. It doesn't matter what value, as long as not NaN:
+  # fix for empty nests. Set to zero, just cannot be NaN:
   P_j_Bk[is.na(P_j_Bk)] <- 0
 
   P_j <- rowSums(P_j_Bk * matrix(rep((P_k),J), ncol = K, nrow = J, byrow = TRUE))

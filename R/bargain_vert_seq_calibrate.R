@@ -43,10 +43,6 @@
 ## Given demand parameters, what are wholesale costs that allow the model wholesale
 ## prices to closely match the observed wholesale prices.
 
-## also note that symmetric case has hard-coded bounds. fix.
-## and just see in general about further standardizing symmetric cost
-## case with non-symmetric.
-
 bargain_vert_seq_calibrate <- function(c_w_val,price_w,own_down,
                                        own_up, alpha,delta,
                                        lambda,cost_r,price_r,sigma,
@@ -60,8 +56,6 @@ bargain_vert_seq_calibrate <- function(c_w_val,price_w,own_down,
   if (symmetricCosts == FALSE) {
 
     error <- rep(1,J)
-    # tol <- 0.001   # maybe ideal but takes so long.
-    #tol <- .01
     tol <- setTol
 
     p_W0 <- price_w + .1
@@ -72,9 +66,8 @@ bargain_vert_seq_calibrate <- function(c_w_val,price_w,own_down,
       for (x in 1:J) {
 
         #w_start <- p_W0[x] - .001   # add eps to get cleaner convergence flags
-        # does adding epsilon still make sense in calibration function?
         w_start <- p_W0[x]
-        # for calibration function ONLY, makes sense to hard code p_R0 = price_r
+        # for calibration function only, hard code p_R0 = price_r
 
         lbc <- c_w_val[x]
         ubc <- price_r[x]
@@ -125,9 +118,8 @@ bargain_vert_seq_calibrate <- function(c_w_val,price_w,own_down,
       for (x in 1:J) {
 
         #w_start <- p_W0[x] - .001   # add eps to get cleaner convergence flags
-        # does adding epsilon still make sense in calibration function?
         w_start <- p_W0[x]
-        # for calibration function ONLY, makes sense to hard code p_R0 = price_r
+        # for calibration function only, hard code p_R0 = price_r
         checktest <- stats::optimize(f = bargain_NP_vert_seq,
                               product_max = x, price_w = p_W0,
                               own_down = own_down, own_up = own_up,
@@ -162,7 +154,7 @@ bargain_vert_seq_calibrate <- function(c_w_val,price_w,own_down,
     }
   }
 
-  # uncomment next two lines just for debugging purposes.
+  # uncomment next two lines for debugging purposes.
   #print(iter)
   #print(error)
   #print(p_W0)

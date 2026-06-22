@@ -70,10 +70,6 @@ bertrand_vert_calibrate <- function(param,own_down,price_r,shares,cost,price_w){
 #'
 #' @noRd
 
-
-## cost_r calibration. Re-arrangement of Bert_foc_gnl
-## Find retail costs that best match model to retail prices.
-
 bertrand_vert_calibrate_gnl <- function(cost, price_r,own_down,alpha,delta,price_w,
                                         nest_allocation=NA,mu=NA,sumFOC = FALSE){
 
@@ -130,13 +126,11 @@ bertrand_vert_calibrate_gnl <- function(cost, price_r,own_down,alpha,delta,price
 
 ## A bertrand calibration function that accounts for vertical structure,
 ## calibrates all deltas, and requires all costs be provided. Uses Bert_foc().
-## old name: Bert_foc_calibrate
 ## compared to bertrand_vert_calibrate, v2 takes weight as input, calibrates
 ## delta rather than use berry inversion to get it, uses multiroot to solve for
 ## prices rather than BBoptim, and the objective function includes prices and
 ## shares rather than only prices.
-## eventually, I need to consolidate the two functions into one. But there is a
-## lot to consider.
+
 bertrand_vert_calibrate_v2 <- function(param,own_down,price,shares,cost,p_W,weight){
 
   J <- length(price)

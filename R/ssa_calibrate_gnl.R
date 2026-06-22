@@ -89,7 +89,7 @@ ssa_calibrate_gnl <- function(param, own, price,
   mu <- mu_constraint_matrix %*% mu_prime
 
   #### calculate delta
-  delta0 <- log(shares) - log(1-sum(shares)) - alpha*price  ## assuming alpha<0.
+  delta0 <- log(shares) - log(1-sum(shares)) - alpha*price
 
   find_d <- rootSolve::multiroot(f = match_share, start = delta0,
                       price=cost, alpha=alpha, nest_allocation=a_jk,

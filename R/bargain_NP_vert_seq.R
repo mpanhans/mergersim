@@ -77,7 +77,6 @@ bargain_NP_vert_seq <- function(w_start,product_max,price_w,own_down,own_up,alph
   own_W_down[,VI_D_idx] <- 0
 
   # Given the inputs, calculate optimal retail prices
-  # vertical
   outtest <- BB::BBoptim(f = bertrand_foc_vert, par = p_R0,
                      own_down = own_down, own_up = own_up,
                      alpha= alpha,
@@ -278,7 +277,6 @@ bargain_NP_vert_seq_gnl <- function(w_start,product_max,price_w,own_down,own_up,
   own_W_down[,VI_D_idx] <- 0
 
   # Given the inputs, calculate optimal retail prices
-  # vertical
   outtest <- BB::BBoptim(f = bertrand_foc_vert_gnl, par = p_R0,
                      own_down = own_down, own_up = own_up,
                      alpha= alpha,
@@ -373,8 +371,8 @@ bargain_NP_vert_seq_gnl <- function(w_start,product_max,price_w,own_down,own_up,
 #'
 #' @noRd
 
-## Vertical function, if p^R cannot adjust in disagreement
-## Unused as that did not seem to be an appealing assumption for sequential model.
+## Vertical function where p^R cannot adjust in disagreement
+## Unused as that is less appealing assumption for sequential timing
 
 bargain_NP_vert_seq2 <- function(w_start,product_max,p_W,own_down,own_up,alpha,delta,
                                  cost_w,cost_r,lambda,p_R0,sigma,showAll = FALSE){
@@ -407,7 +405,6 @@ bargain_NP_vert_seq2 <- function(w_start,product_max,p_W,own_down,own_up,alpha,d
   own_W_down[,VI_D_idx] <- 0
 
   # Given the inputs, calculate optimal retail prices
-  # vertical
   outtest <- BB::BBoptim(f = bertrand_foc_vert, par = p_R0,
                      own_down = own_down, own_up = own_up,
                      alpha= alpha,
@@ -479,7 +476,7 @@ bargain_NP_vert_seq2 <- function(w_start,product_max,p_W,own_down,own_up,alpha,d
 #' @noRd
 
 ## Vertical function, if p^R cannot adjust in disagreement
-## Unused as that did not seem to be an appealing assumption for sequential model.
+## Unused as that is less appealing assumption for sequential timing
 ## This version allows for overlapping nests.
 
 bargain_NP_vert_seq2_gnl <- function(w_start,product_max,p_W,own_down,own_up,alpha,delta,
@@ -514,7 +511,6 @@ bargain_NP_vert_seq2_gnl <- function(w_start,product_max,p_W,own_down,own_up,alp
   own_W_down[,VI_D_idx] <- 0
 
   # Given the inputs, calculate optimal retail prices
-  # vertical
   outtest <- BB::BBoptim(f = bertrand_foc_vert_gnl, par = p_R0,
                      own_down = own_down, own_up = own_up,
                      alpha= alpha,

@@ -29,7 +29,7 @@
 #' alpha = -0.9, delta = c(0.2, 0.3, 0.9, 1.0, 0.8, 0.9),
 #' lambda = 0.5, cost_r = rep(.1, times = 6),
 #' price_r = c(2.9, 2.9, 3.0, 3.0, 3.0, 3.0),
-#' sigma = 0, setTol = 0.9)
+#' sigma = 0, setTol = 1.5)
 #'
 #' @export
 

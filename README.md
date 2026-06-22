@@ -4,6 +4,7 @@
 # mergersim
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 This repository contains a collection of functions that can be used to
@@ -18,6 +19,21 @@ You can install the development version of mergersim from
 ``` r
 # install.packages("devtools")
 devtools::install_github("mpanhans/mergersim")
+```
+
+You can install the released version of mergersim from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("mergersim")
+```
+
+## Example
+
+See the package vignettes for examples:
+
+``` r
+vignette("horizontal-merger-simulations", package = "mergersim")
 ```
 
 # Disclaimer
